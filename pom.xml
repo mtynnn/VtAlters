@@ -5,7 +5,7 @@
 
     <groupId>com.vtalters</groupId>
     <artifactId>VtAlters</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -14,7 +14,7 @@
     </properties>
 
     <build>
-        <finalName>VtAlters-1.0</finalName> 
+        <finalName>VtAlters-1.1</finalName>
         <defaultGoal>clean package</defaultGoal>
         <plugins>
             <plugin>
@@ -50,23 +50,60 @@
             <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
+        <!-- Repositorio oficial de Nexo -->
+        <repository>
+            <id>nexomc-releases</id>
+            <url>https://repo.nexomc.com/releases</url>
+        </repository>
+        <!-- Repositorio para dependencias transitivas de Nexo -->
+        <repository>
+            <id>jitpack</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>triumph-snapshots</id>
+            <url>https://repo.triumphteam.dev/snapshots</url>
+        </repository>
+        <repository>
+            <id>byteflux</id>
+            <url>https://repo.byteflux.net/repository/byteflux-public/</url>
+        </repository>
     </repositories>
 
     <dependencies>
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <!-- Changed to an older API version for multi-version compatibility -->
             <version>1.17.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
+        <!-- MythicMobs - local JAR via system scope -->
         <dependency>
-            <groupId>io.lumine.mythic</groupId>
-            <artifactId>mythic</artifactId>
+            <groupId>org.mineacademy.plugin</groupId>
+            <artifactId>MythicMobs</artifactId>
             <version>5.6.1</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/MythicMobs.jar</systemPath>
+            <systemPath>${user.home}/.m2/repository/org/mineacademy/plugin/MythicMobs/5.6.1/MythicMobs-5.6.1.jar</systemPath>
+        </dependency>
+
+        <!-- Nexo - dependencia opcional (softdepend) -->
+        <!-- Las transitivas de Nexo no son necesarias en compile-time, se excluyen -->
+        <dependency>
+            <groupId>com.nexomc</groupId>
+            <artifactId>nexo</artifactId>
+            <version>1.8.0</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.byteflux</groupId>
+                    <artifactId>libby-bukkit</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>dev.triumphteam</groupId>
+                    <artifactId>triumph-gui</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>

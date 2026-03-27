@@ -1,84 +1,85 @@
 # File ngôn ngữ tiếng Việt cho VtAlters
-# Bạn có thể sử dụng mã màu của Minecraft với ký tự '&'. Ví dụ: &c cho màu đỏ.
-# Các ký tự giữ chỗ như %player%, %name%, v.v., sẽ được plugin tự động thay thế.
+# Bạn có thể dùng mã màu Minecraft với '&'. Ví dụ: &c cho màu đỏ.
+# Các ký tự giữ chỗ như %player%, %name%, v.v. sẽ được thay tự động.
 
-# Các thông báo chung của plugin
+# ── Thông báo chung ──────────────────────────────────────────────────────────
 general:
   reloaded: '&aPlugin đã được tải lại thành công.'
   not-a-player: '&cChỉ người chơi mới có thể dùng lệnh này.'
-  no-permission: '&cBạn không có quyền sử dụng lệnh này.'
+  no-permission: '&cBạn không có quyền dùng lệnh này.'
   usage: '&cCách dùng: %usage%'
-  plugin-has-errors: '&c[VtAlters] Plugin đã phát hiện lỗi và có thể không hoạt động đúng. Nguyên nhân: &e%reasons%&c. Vui lòng kiểm tra console để biết chi tiết và dùng &e/vta reload&c sau khi sửa.'
+  plugin-has-errors: '&c[VtAlters] Plugin phát hiện lỗi và có thể không hoạt động đúng. Nguyên nhân: &e%reasons%&c. Kiểm tra console và dùng &e/vta reload&c sau khi sửa.'
 
-# Các thông báo liên quan đến gậy
+# ── Thông báo về gậy ─────────────────────────────────────────────────────────
 wand:
   given: '&aBạn đã nhận được Gậy Thiết Lập Bàn Tế.'
   selection: '&dĐã chọn khối tại &ex: %x%&d, &ey: %y%&d, &ez: %z%&d.'
-  error-no-selection: '&cBạn phải chọn một khối bằng gậy trước!'
+  error-no-selection: '&cBạn cần chọn một khối bằng gậy trước!'
 
-# Các thông báo lệnh bàn tế (tạo, xóa, danh sách, chỉnh sửa)
+# ── Lệnh bàn tế (tạo, xóa, danh sách, chỉnh sửa) ───────────────────────────
 altar-commands:
   # Tạo
-  created: '&aĐã tạo thành công bàn tế mới tên là &e%name%&a.'
-  error-altar-exists: '&cBàn tế có tên &e%name% &cđã tồn tại.'
+  created: '&aTạo bàn tế &e%name% &athành công.'
+  error-altar-exists: '&cBàn tế &e%name% &cđã tồn tại.'
 
   # Xóa
-  deleted: '&aĐã xóa thành công bàn tế &e%name%&a.'
-  error-no-altar: '&cKhông tìm thấy bàn tế nào có tên &e%name%&c.'
-  
+  deleted: '&aXóa bàn tế &e%name% &athành công.'
+  error-no-altar: '&cKhông tìm thấy bàn tế &e%name%&c.'
+
   # Danh sách
-  list-header: '&6--- &eDanh Sách Bàn Tế&6 ---'
+  list-header: '&6--- &eDanh Sách Bàn Tế &6---'
   list-entry: '&8- &7%name%'
-  list-empty: ' &7(Không tìm thấy bàn tế nào)'
+  list-empty: ' &7(Không có bàn tế nào)'
 
   # Chỉnh sửa
-  center-set: '&aTâm bàn tế đã được đặt tại vị trí bạn chọn.'
-  boss-set: '&aBoss cho bàn tế &e%name% &ađã được đặt thành &e%mob%&a.'
+  center-set: '&aĐã đặt tâm bàn tế tại vị trí đã chọn.'
+  boss-set: '&aBoss của bàn tế &e%name% &ađã được đặt thành &e%mob%&a.'
   center-item-set: '&aVật phẩm kích hoạt đã được đặt thành &e%item_name%&a.'
   pedestal-added: '&aĐã thêm pedestal vào bàn tế.'
-  pedestal-removed: '&aĐã xóa pedestal tại vị trí bạn chọn.'
+  pedestal-removed: '&aĐã xóa pedestal tại vị trí đã chọn.'
   pedestals-cleared: '&aĐã xóa tất cả pedestal của bàn tế &e%name%&a.'
   required-item-set: '&aĐã đặt &e%amount%x %item_name% &alàm vật phẩm yêu cầu.'
-  required-item-removed: '&aĐã xóa (các) yêu cầu vật phẩm trùng khớp khỏi bàn tế.'
-  required-items-cleared: '&aĐã xóa tất cả vật phẩm yêu cầu khỏi bàn tế.'
+  required-item-removed: '&aĐã xóa (các) vật phẩm yêu cầu trùng khớp.'
+  required-items-cleared: '&aĐã xóa tất cả vật phẩm yêu cầu.'
 
-  # Lỗi khi chỉnh sửa
-  error-no-item-in-hand: '&cBạn phải cầm một vật phẩm trên tay chính.'
-  error-must-set-center: '&cBạn phải đặt tâm bàn tế trước khi thêm pedestal.'
-  error-pedestal-too-far: '&cPedestal đã chọn ở quá xa tâm bàn tế (Bán kính tối đa: %radius% khối).'
-  error-pedestal-already-exists: '&cKhối này đã được đăng ký làm pedestal.'
-  error-pedestal-not-found: '&cKhối đã chọn không phải là pedestal của bàn tế này.'
-  error-no-pedestals-to-clear: '&cBàn tế &e%name% &ckhông có pedestal nào để xóa.'
-  error-invalid-number: '&cVui lòng cung cấp một số dương hợp lệ.'
-  error-no-required-items-to-remove: '&cBàn tế này không có vật phẩm yêu cầu nào để xóa.'
-  error-no-matching-item-to-remove: '&cKhông có yêu cầu vật phẩm nào khớp với vật phẩm trên tay bạn.'
-  error-must-add-pedestals-first: '&cBạn phải thêm pedestal trước khi yêu cầu vật phẩm.'
-  error-items-exceed-pedestals: '&cKhông thể thêm. Tổng vật phẩm yêu cầu (%total_required%) sẽ vượt quá số pedestal (%pedestal_count%).'
+  # Lỗi chỉnh sửa
+  error-no-item-in-hand: '&cBạn cần cầm vật phẩm trên tay chính.'
+  error-must-set-center: '&cCần đặt tâm bàn tế trước khi thêm pedestal.'
+  error-pedestal-too-far: '&cPedestal quá xa tâm bàn tế (Bán kính tối đa: %radius% khối).'
+  error-pedestal-already-exists: '&cKhối này đã là pedestal.'
+  error-pedestal-not-found: '&cKhối đã chọn không phải pedestal của bàn tế này.'
+  error-no-pedestals-to-clear: '&cBàn tế &e%name% &ckhông có pedestal để xóa.'
+  error-invalid-number: '&cVui lòng nhập số dương hợp lệ.'
+  error-no-required-items-to-remove: '&cBàn tế này không có vật phẩm yêu cầu để xóa.'
+  error-no-matching-item-to-remove: '&cKhông có vật phẩm yêu cầu nào khớp với vật phẩm trên tay.'
+  error-must-add-pedestals-first: '&cCần thêm pedestal trước khi yêu cầu vật phẩm.'
+  error-items-exceed-pedestals: '&cKhông thể thêm. Tổng vật phẩm yêu cầu (%total_required%) vượt quá số pedestal (%pedestal_count%).'
 
-# Các thông báo tương tác với bàn tế (khi chơi game)
+# ── Tương tác với bàn tế (khi chơi) ─────────────────────────────────────────
 altar-interaction:
-  not-ready: '&cBàn tế chưa sẵn sàng. Cần thêm vật phẩm.'
-  wrong-item: '&cBạn đã dùng sai vật phẩm trên bàn tế.'
+  not-ready: '&cBàn tế chưa sẵn sàng. Cần thêm vật phẩm lên pedestal.'
+  wrong-item: '&cBạn dùng sai vật phẩm trên bàn tế.'
+  wrong-pedestal-item: '&c&l%item% &ckhông phải vật phẩm đúng cho pedestal này. Thử với: &e%hint%&c.'
   ritual-start: '&5Nghi lễ đã bắt đầu...'
   boss-spawned: '&aBoss đã được triệu hồi!'
-  summoning: '&eNghi lễ của bàn tế đang được tiến hành tại đây.'
-  not-your-item: '&cBạn không thể lấy vật phẩm mà bạn không phải người đặt.'
-  boss-summon-broadcast: '&6&lMột con Boss đã xuất hiện! &e%player% &cđã triệu hồi &4&l%boss% &cthông qua bàn tế!'
-  error-invalid-boss: '&cLỗi triệu hồi boss: Loại boss ''%boss%'' không hợp lệ. Vui lòng liên hệ người quản lý server.'
+  summoning: '&eĐang có nghi lễ tại bàn tế này.'
+  not-your-item: '&cBạn không thể lấy vật phẩm mà bạn không đặt.'
+  boss-summon-broadcast: '&6&lMột Boss đã xuất hiện! &e%player% &cđã triệu hồi &4&l%boss% &cqua bàn tế!'
+  error-invalid-boss: '&cLỗi triệu hồi: loại boss ''%boss%'' không hợp lệ. Liên hệ quản trị viên.'
 
-# Tin nhắn trợ giúp
+# ── Trợ giúp ─────────────────────────────────────────────────────────────────
 help:
   header: '&6--- &e&lTrợ Giúp VtAlters &6---'
-  create: '&a/%label% create <tên> &7- Tạo một bàn tế mới.'
-  delete: '&a/%label% delete <tên> &7- Xóa một bàn tế.'
-  list: '&a/%label% list &7- Liệt kê tất cả bàn tế.'
+  create: '&a/%label% create <tên> &7- Tạo bàn tế mới.'
+  delete: '&a/%label% delete <tên> &7- Xóa bàn tế.'
+  list: '&a/%label% list &7- Liệt kê bàn tế.'
   wand: '&a/%label% wand &7- Lấy gậy thiết lập.'
   reload: '&a/%label% reload &7- Tải lại plugin.'
   edit-header: '&6--- &eLệnh Chỉnh Sửa &6---'
   edit-set-center: '&a/%label% edit <tên> set center &7- Đặt khối trung tâm.'
-  edit-set-mob: '&a/%label% edit <tên> set mob <tên_mob> &7- Đặt boss triệu hồi.'
-  edit-add-itemcenter: '&a/%label% edit <tên> add itemcenter &7- Đặt vật phẩm kích hoạt.'
-  edit-add-pedestal: '&a/%label% edit <tên> add pedestal &7- Thêm một khối pedestal.'
-  edit-add-item: '&a/%label% edit <tên> add item <số_lượng> &7- Thêm vật phẩm yêu cầu.'
-  edit-remove-pedestal: '&a/%label% edit <tên> remove pedestal [all] &7- Xóa một hoặc tất cả pedestal.'
-  edit-remove-item: '&a/%label% edit <tên> remove item [all] &7- Xóa một hoặc tất cả vật phẩm yêu cầu.'
+  edit-set-mob: '&a/%label% edit <tên> set mob <mob> &7- Đặt boss triệu hồi.'
+  edit-add-itemcenter: '&a/%label% edit <tên> add itemcenter &7- Đặt vật phẩm kích hoạt (hỗ trợ Nexo).'
+  edit-add-pedestal: '&a/%label% edit <tên> add pedestal &7- Thêm pedestal.'
+  edit-add-item: '&a/%label% edit <tên> add item <số> &7- Thêm vật phẩm yêu cầu (hỗ trợ Nexo).'
+  edit-remove-pedestal: '&a/%label% edit <tên> remove pedestal [all] &7- Xóa pedestal.'
+  edit-remove-item: '&a/%label% edit <tên> remove item [all] &7- Xóa vật phẩm yêu cầu.'

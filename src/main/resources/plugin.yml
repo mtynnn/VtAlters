@@ -1,19 +1,19 @@
 name: VtAlters
-version: '1.0'
+version: '1.1'
 main: com.vtalters.VtAlters
-# Changed to the oldest supported version
 api-version: '1.17'
 author: thangks
-description: A plugin for summoning bosses via altars using MythicMobs.
+description: Plugin para invocar jefes mediante altares rituales usando MythicMobs. Soporta items personalizados de Nexo.
 depend: [MythicMobs]
+softdepend: [Nexo]
 commands:
   vtalters:
-    description: Main command for the VtAlters plugin.
-    usage: /<command> [subcommand]
+    description: Comando principal del plugin VtAlters.
+    usage: /<command> [subcomando]
     aliases: [altar, vta]
 permissions:
   vtalters.admin:
-    description: Grants access to all VtAlters commands.
+    description: Concede acceso a todos los comandos de VtAlters.
     default: op
     children:
       vtalters.command.create: true
@@ -23,20 +23,20 @@ permissions:
       vtalters.command.reload: true
       vtalters.command.edit: true
   vtalters.command.create:
-    description: Allows creating new altars.
+    description: Permite crear nuevos altares.
     default: op
   vtalters.command.delete:
-    description: Allows deleting altars.
+    description: Permite eliminar altares.
     default: op
   vtalters.command.list:
-    description: Allows listing all altars.
+    description: Permite listar todos los altares.
     default: op
   vtalters.command.wand:
-    description: Allows getting the setup wand.
+    description: Permite obtener la varita de configuracion.
     default: op
   vtalters.command.reload:
-    description: Allows reloading the plugin.
+    description: Permite recargar el plugin.
     default: op
   vtalters.command.edit:
-    description: Allows editing altars.
+    description: Permite editar altares.
     default: op

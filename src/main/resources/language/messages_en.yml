@@ -1,72 +1,73 @@
 # English language file for VtAlters
 # You can use standard Minecraft color codes with '&'. Example: &c for red.
-# Placeholders like %player%, %name%, etc., will be replaced by the plugin automatically.
+# Placeholders like %player%, %name%, etc., are replaced automatically by the plugin.
 
-# General plugin messages
+# ── General messages ────────────────────────────────────────────────────────
 general:
-  reloaded: '&aPlugin has been reloaded successfully.'
+  reloaded: '&aPlugin reloaded successfully.'
   not-a-player: '&cThis command can only be executed by a player.'
   no-permission: '&cYou do not have permission to use this command.'
   usage: '&cUsage: %usage%'
-  plugin-has-errors: '&c[VtAlters] The plugin has detected errors and may not function correctly. Reasons: &e%reasons%&c. Please check the console for details and use &e/vta reload&c after fixing.'
+  plugin-has-errors: '&c[VtAlters] The plugin has detected errors and may not function correctly. Reasons: &e%reasons%&c. Check the console for details and run &e/vta reload&c after fixing.'
 
-# Wand related messages
+# ── Wand messages ────────────────────────────────────────────────────────────
 wand:
   given: '&aYou have been given the Altar Setup Wand.'
   selection: '&dSelected block at &ex: %x%&d, &ey: %y%&d, &ez: %z%&d.'
   error-no-selection: '&cYou must select a block with the wand first!'
 
-# Altar command messages (create, delete, list, edit)
+# ── Altar command messages (create, delete, list, edit) ─────────────────────
 altar-commands:
   # Creation
-  created: '&aSuccessfully created a new altar named &e%name%&a.'
+  created: '&aSuccessfully created altar &e%name%&a.'
   error-altar-exists: '&cAn altar named &e%name% &calready exists.'
 
   # Deletion
-  deleted: '&aSuccessfully deleted the altar named &e%name%&a.'
+  deleted: '&aSuccessfully deleted altar &e%name%&a.'
   error-no-altar: '&cCould not find an altar named &e%name%&c.'
-  
+
   # Listing
-  list-header: '&6--- &eAvailable Altars&6 ---'
+  list-header: '&6--- &eAvailable Altars &6---'
   list-entry: '&8- &7%name%'
   list-empty: ' &7(No altars found)'
 
   # Editing
-  center-set: '&aAltar center has been set to your selection.'
-  boss-set: '&aBoss for altar &e%name% &ahas been set to &e%mob%&a.'
-  center-item-set: '&aActivation item has been set to &e%item_name%&a.'
-  pedestal-added: '&aPedestal has been added to the altar.'
-  pedestal-removed: '&aPedestal has been removed from your selection.'
-  pedestals-cleared: '&aAll pedestals have been cleared for altar &e%name%&a.'
+  center-set: '&aAltar center set to your selection.'
+  boss-set: '&aBoss for altar &e%name% &aset to &e%mob%&a.'
+  center-item-set: '&aActivation item set to &e%item_name%&a.'
+  pedestal-added: '&aPedestal added to the altar.'
+  pedestal-removed: '&aPedestal removed from your selection.'
+  pedestals-cleared: '&aAll pedestals cleared for altar &e%name%&a.'
   required-item-set: '&aSet &e%amount%x %item_name% &aas a required item.'
-  required-item-removed: '&aRemoved matching required item(s) from the altar.'
-  required-items-cleared: '&aAll required items have been cleared from the altar.'
+  required-item-removed: '&aMatching required item(s) removed from the altar.'
+  required-items-cleared: '&aAll required items cleared from the altar.'
 
-  # Editing Errors
+  # Editing errors
   error-no-item-in-hand: '&cYou must be holding an item in your main hand.'
-  error-must-set-center: '&cYou must set the altar''s center location before adding pedestals.'
-  error-pedestal-too-far: '&cThe selected pedestal is too far from the altar center (Max radius: %radius% blocks).'
+  error-must-set-center: '&cYou must set the altar''s center before adding pedestals.'
+  error-pedestal-too-far: '&cThe selected pedestal is too far from the center (Max radius: %radius% blocks).'
   error-pedestal-already-exists: '&cThis block is already registered as a pedestal.'
   error-pedestal-not-found: '&cThe selected block is not a registered pedestal for this altar.'
   error-no-pedestals-to-clear: '&cAltar &e%name% &chas no pedestals to clear.'
   error-invalid-number: '&cPlease provide a valid positive number.'
   error-no-required-items-to-remove: '&cThis altar has no required items to remove.'
   error-no-matching-item-to-remove: '&cNo required item matched the item in your hand.'
-  error-must-add-pedestals-first: '&cYou must add pedestals to the altar before requiring items.'
+  error-must-add-pedestals-first: '&cYou must add pedestals before requiring items.'
   error-items-exceed-pedestals: '&cCannot add. Total required items (%total_required%) would exceed pedestal count (%pedestal_count%).'
 
-# Altar interaction messages (in-game use)
+# ── Altar interaction messages (in-game) ────────────────────────────────────
 altar-interaction:
-  not-ready: '&cThe altar is not yet ready. More items are required.'
-  wrong-item: '&cYou have used the wrong item on the altar.'
+  not-ready: '&cThe altar is not ready yet. More items are required on the pedestals.'
+  wrong-item: '&cYou used the wrong item on the altar.'
+  wrong-pedestal-item: '&c&l%item% &cis not the correct item for this pedestal. Try: &e%hint%&c.'
   ritual-start: '&5The ritual has begun...'
   boss-spawned: '&aThe boss has been summoned!'
-  summoning: '&eAn altar ritual is already in progress here.'
-  not-your-item: '&cYou cannot take an item that you did not place.'
+  summoning: '&eA ritual is already in progress at this altar.'
+  not-your-item: '&cYou cannot take an item you did not place.'
   boss-summon-broadcast: '&6&lA Boss has Appeared! &e%player% &chas summoned &4&l%boss% &cvia an altar!'
-  error-invalid-boss: '&cError summoning boss: The boss type ''%boss%'' is invalid. Please contact a server administrator.'
+  error-invalid-boss: '&cError summoning boss: the type ''%boss%'' is invalid. Contact a server administrator.'
 
-# Help Messages
+# ── Help messages ────────────────────────────────────────────────────────────
 help:
   header: '&6--- &e&lVtAlters Help &6---'
   create: '&a/%label% create <name> &7- Create a new altar.'
@@ -77,8 +78,8 @@ help:
   edit-header: '&6--- &eEdit Commands &6---'
   edit-set-center: '&a/%label% edit <name> set center &7- Set the center block.'
   edit-set-mob: '&a/%label% edit <name> set mob <mob> &7- Set the boss to summon.'
-  edit-add-itemcenter: '&a/%label% edit <name> add itemcenter &7- Set the activation item.'
+  edit-add-itemcenter: '&a/%label% edit <name> add itemcenter &7- Set the activation item (Nexo compatible).'
   edit-add-pedestal: '&a/%label% edit <name> add pedestal &7- Add a pedestal block.'
-  edit-add-item: '&a/%label% edit <name> add item <amount> &7- Add a required item.'
-  edit-remove-pedestal: '&a/%label% edit <name> remove pedestal [all] &7- Remove a pedestal(s).'
-  edit-remove-item: '&a/%label% edit <name> remove item [all] &7- Remove a required item(s).'
+  edit-add-item: '&a/%label% edit <name> add item <amount> &7- Add a required item (Nexo compatible).'
+  edit-remove-pedestal: '&a/%label% edit <name> remove pedestal [all] &7- Remove a pedestal or all.'
+  edit-remove-item: '&a/%label% edit <name> remove item [all] &7- Remove a required item or all.'

@@ -1,45 +1,55 @@
 #================================#
-#      General Settings          #
+#      Configuración General      #
 #================================#
-# Set the language file for plugin messages.
-# This corresponds to the file in the 'language' folder.
-# For example, if you have 'messages_vi.yml', set this to 'vi'.
-# Available: Vienamese: vi, English: en
-language: vi
+# Selecciona el archivo de idioma para los mensajes del plugin.
+# Corresponde al archivo en la carpeta 'language'.
+# Ejemplo: si tienes 'messages_es.yml', escribe 'es'.
+# Disponibles: Español: es | Inglés: en | Vietnamita: vi
+language: es
 
 #================================#
-#      Altar Settings            #
+#      Configuración de Altares   #
 #================================#
 altar:
-  # Prevent other players from taking items placed on pedestals.
-  # If true, only the player who placed an item can take it back.
-  # Set to false to allow anyone to take items.
+  # Impide que otros jugadores roben items colocados en pedestales.
+  # true  → solo quien colocó el item puede recuperarlo.
+  # false → cualquier jugador puede tomarlo.
   prevent-item-theft: true
-  
-  # Broadcast a server-wide message when a boss is summoned.
+
+  # Emite un anuncio global al servidor cuando se invoca un jefe.
   broadcast-summon:
     enabled: true
-    
-  # The maximum radius (in blocks) from the center block that pedestals can be placed.
+
+  # Radio máximo (en bloques) desde el bloque central hasta donde se
+  # puede registrar un pedestal.
   max-pedestal-radius: 10.0
 
 #================================#
-#      Effect Settings           #
+#      Integración con Nexo       #
+#================================#
+nexo:
+  # Activa o desactiva el soporte de items de Nexo aunque el plugin esté cargado.
+  # Ponlo en false si quieres deshabilitar la integración sin desinstalar Nexo.
+  enabled: true
+
+#================================#
+#      Configuración de Efectos   #
 #================================#
 effects:
-  # Configure the height of various effects.
-  # Heights are measured from the bottom of the block (e.g., 0.5 is the block's center).
+  # Altura de los distintos efectos visuales.
+  # Se mide desde la base del bloque (0.0 = suelo del bloque).
   heights:
-    # Height of the particle effect on pedestals with a correct item.
+    # Altura a la que flota el item sobre el pedestal.
     pedestal: 1.2
-    # Height of the simple particle above the center block when the altar is ready.
+    # Altura de la partícula simple sobre el bloque central cuando el altar está listo.
     ready-particle: 1.2
-    # The vertical offset of the ritual rings relative to the central item's position.
-    # 0.0 is exactly at the item's level.
+    # Desplazamiento vertical de los anillos de ritual respecto al item central.
+    # 0.0 = exactamente al nivel del item.
     ritual-ring-offset: 0.0
-  
-  # Configure the particle types for various effects.
-  # A list of valid particle names can be found on the Spigot Javadocs.
+
+  # Tipos de partículas para los distintos efectos.
+  # Lista de nombres válidos: https://jd.papermc.io/paper/1.20/ (Particle enum)
+  # Usa "none" para desactivar un efecto de partículas.
   particles:
     altar-ready: "SOUL_FIRE_FLAME"
     ritual-ring: "SOUL_FIRE_FLAME"
@@ -47,11 +57,11 @@ effects:
     animation-trail: "ENCHANTMENT_TABLE"
     animation-trail-secondary: "END_ROD"
     convergence-burst: "END_ROD"
-  
-  # Configure sounds for different stages.
-  # Format: "SOUND_NAME,Volume,Pitch"
-  # Example: "ENTITY_PLAYER_LEVELUP,1.0,1.0"
-  # A list of valid sound names can be found on the Spigot Javadocs.
+
+  # Sonidos para cada fase del ritual.
+  # Formato: "NOMBRE_SONIDO,Volumen,Tono"
+  # Ejemplo: "ENTITY_PLAYER_LEVELUP,1.0,1.0"
+  # Lista de nombres válidos: https://jd.papermc.io/paper/1.20/ (Sound enum)
   sounds:
     ritual-start: "BLOCK_BEACON_ACTIVATE,1.5,0.8"
     ritual-ambient-loop: "BLOCK_CONDUIT_AMBIENT_SHORT,1.0,1.2"

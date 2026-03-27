@@ -3,10 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.vtalters</groupId>
   <artifactId>VtAlters</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
   <build>
     <defaultGoal>clean package</defaultGoal>
-    <finalName>VtAlters-1.0</finalName>
+    <finalName>VtAlters-1.1</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -38,6 +38,22 @@
       <id>papermc</id>
       <url>https://repo.papermc.io/repository/maven-public/</url>
     </repository>
+    <repository>
+      <id>nexomc-releases</id>
+      <url>https://repo.nexomc.com/releases</url>
+    </repository>
+    <repository>
+      <id>jitpack</id>
+      <url>https://jitpack.io</url>
+    </repository>
+    <repository>
+      <id>triumph-snapshots</id>
+      <url>https://repo.triumphteam.dev/snapshots</url>
+    </repository>
+    <repository>
+      <id>byteflux</id>
+      <url>https://repo.byteflux.net/repository/byteflux-public/</url>
+    </repository>
   </repositories>
   <dependencies>
     <dependency>
@@ -47,11 +63,27 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>io.lumine.mythic</groupId>
-      <artifactId>mythic</artifactId>
+      <groupId>com.nexomc</groupId>
+      <artifactId>nexo</artifactId>
+      <version>1.8.0</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>libby-bukkit</artifactId>
+          <groupId>net.byteflux</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>triumph-gui</artifactId>
+          <groupId>dev.triumphteam</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.mineacademy.plugin</groupId>
+      <artifactId>MythicMobs</artifactId>
       <version>5.6.1</version>
       <scope>system</scope>
-      <systemPath>${project.basedir}/lib/MythicMobs.jar</systemPath>
+      <systemPath>${user.home}/.m2/repository/org/mineacademy/plugin/MythicMobs/5.6.1/MythicMobs-5.6.1.jar</systemPath>
     </dependency>
   </dependencies>
   <properties>

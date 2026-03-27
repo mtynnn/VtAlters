@@ -1,0 +1,85 @@
+# Archivo de idioma en Español para VtAlters
+# Puedes usar códigos de color de Minecraft con '&'. Ejemplo: &c para rojo.
+# Los marcadores como %player%, %name%, etc., son reemplazados automáticamente.
+
+# ── Mensajes generales ──────────────────────────────────────────────────────
+general:
+  reloaded: '&aPlugin recargado correctamente.'
+  not-a-player: '&cEste comando solo puede ser ejecutado por un jugador.'
+  no-permission: '&cNo tienes permiso para usar este comando.'
+  usage: '&cUso: %usage%'
+  plugin-has-errors: '&c[VtAlters] El plugin ha detectado errores y puede no funcionar bien. Causas: &e%reasons%&c. Revisa la consola y usa &e/vta reload&c tras corregir.'
+
+# ── Mensajes de la varita ───────────────────────────────────────────────────
+wand:
+  given: '&aHas recibido la Varita de Configuración de Altar.'
+  selection: '&dBloque seleccionado en &ex: %x%&d, &ey: %y%&d, &ez: %z%&d.'
+  error-no-selection: '&cPrimero debes seleccionar un bloque con la varita.'
+
+# ── Comandos de altar (crear, eliminar, listar, editar) ─────────────────────
+altar-commands:
+  # Creación
+  created: '&aAltar &e%name% &acreado correctamente.'
+  error-altar-exists: '&cYa existe un altar llamado &e%name%&c.'
+
+  # Eliminación
+  deleted: '&aAltar &e%name% &aeliminado correctamente.'
+  error-no-altar: '&cNo se encontró ningún altar llamado &e%name%&c.'
+
+  # Listado
+  list-header: '&6--- &eAltares Disponibles &6---'
+  list-entry: '&8- &7%name%'
+  list-empty: ' &7(No hay altares registrados)'
+
+  # Edición
+  center-set: '&aCentro del altar establecido en tu selección.'
+  boss-set: '&aJefe del altar &e%name% &aestablecido como &e%mob%&a.'
+  center-item-set: '&aItem de activación establecido como &e%item_name%&a.'
+  pedestal-added: '&aPedestal añadido al altar.'
+  pedestal-removed: '&aPedestal eliminado de tu selección.'
+  pedestals-cleared: '&aTodos los pedestales del altar &e%name% &ahan sido eliminados.'
+  required-item-set: '&aEstablecido &e%amount%x %item_name% &acomo item requerido.'
+  required-item-removed: '&aItem(s) requerido(s) coincidentes eliminados del altar.'
+  required-items-cleared: '&aTodos los items requeridos del altar han sido eliminados.'
+
+  # Errores de edición
+  error-no-item-in-hand: '&cDebes sostener un item en tu mano principal.'
+  error-must-set-center: '&cDebes establecer el centro del altar antes de añadir pedestales.'
+  error-pedestal-too-far: '&cEl pedestal seleccionado está demasiado lejos del centro (Radio máx: %radius% bloques).'
+  error-pedestal-already-exists: '&cEste bloque ya está registrado como pedestal.'
+  error-pedestal-not-found: '&cEl bloque seleccionado no es un pedestal de este altar.'
+  error-no-pedestals-to-clear: '&cEl altar &e%name% &cno tiene pedestales que eliminar.'
+  error-invalid-number: '&cIntroduce un número positivo válido.'
+  error-no-required-items-to-remove: '&cEste altar no tiene items requeridos que eliminar.'
+  error-no-matching-item-to-remove: '&cNingún item requerido coincide con el que tienes en la mano.'
+  error-must-add-pedestals-first: '&cDebes añadir pedestales antes de requerir items.'
+  error-items-exceed-pedestals: '&cNo se puede añadir. El total de items requeridos (%total_required%) superaría el número de pedestales (%pedestal_count%).'
+
+# ── Interacción con el altar (en juego) ────────────────────────────────────
+altar-interaction:
+  not-ready: '&cEl altar no está listo. Faltan items en los pedestales.'
+  wrong-item: '&cHas usado el item incorrecto en el altar.'
+  wrong-pedestal-item: '&c&l%item% &cno es el item correcto para este pedestal. Prueba con: &e%hint%&c.'
+  ritual-start: '&5El ritual ha comenzado...'
+  boss-spawned: '&a¡El jefe ha sido invocado!'
+  summoning: '&eYa hay un ritual en curso en este altar.'
+  not-your-item: '&cNo puedes tomar un item que no colocaste tú.'
+  boss-summon-broadcast: '&6&l¡Ha aparecido un Jefe! &e%player% &cha invocado a &4&l%boss% &cmediante un altar.'
+  error-invalid-boss: '&cError al invocar: el tipo de jefe ''%boss%'' no es válido. Contacta con un administrador.'
+
+# ── Ayuda ───────────────────────────────────────────────────────────────────
+help:
+  header: '&6--- &e&lAyuda de VtAlters &6---'
+  create: '&a/%label% create <nombre> &7- Crea un nuevo altar.'
+  delete: '&a/%label% delete <nombre> &7- Elimina un altar.'
+  list: '&a/%label% list &7- Lista todos los altares.'
+  wand: '&a/%label% wand &7- Obtén la varita de configuración.'
+  reload: '&a/%label% reload &7- Recarga el plugin.'
+  edit-header: '&6--- &eComandos de Edición &6---'
+  edit-set-center: '&a/%label% edit <nombre> set center &7- Establece el bloque central.'
+  edit-set-mob: '&a/%label% edit <nombre> set mob <mob> &7- Establece el jefe a invocar.'
+  edit-add-itemcenter: '&a/%label% edit <nombre> add itemcenter &7- Establece el item de activación (Nexo compatible).'
+  edit-add-pedestal: '&a/%label% edit <nombre> add pedestal &7- Añade un bloque pedestal.'
+  edit-add-item: '&a/%label% edit <nombre> add item <cantidad> &7- Añade un item requerido (Nexo compatible).'
+  edit-remove-pedestal: '&a/%label% edit <nombre> remove pedestal [all] &7- Elimina un pedestal o todos.'
+  edit-remove-item: '&a/%label% edit <nombre> remove item [all] &7- Elimina un item requerido o todos.'
