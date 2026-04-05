@@ -41,6 +41,7 @@ public final class VtAlters extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        ensureConfigDefaults();
 
         this.errorHandler    = new ErrorHandler(this);
         this.nexoHook        = new NexoHook();
@@ -86,6 +87,31 @@ public final class VtAlters extends JavaPlugin {
      *  4. Reinicializa todos los managers con la nueva configuración.
      *  5. Vuelve a registrar el listener y el comando.
      */
+    private void ensureConfigDefaults() {
+        boolean needsSave = false;
+
+        // Añade la sección de mensajes si no existe
+        if (!getConfig().contains("messages.prefix")) {
+            getConfig().set("messages.prefix", "&e&lVtAlters &8&l»&r ");
+            needsSave = true;
+        }
+
+        if (needsSave) {
+            saveConfig();
+        }
+    }
+
+    /**
+     * Recarga completa del plugin sin reiniciar el servidor.
+     * Compatible con PlugMan reload y con el comando /vta reload.
+     *
+     * Pasos:
+     *  1. Apaga el AltarManager (cancela tareas, elimina entidades flotantes).
+     *  2. Desregistra todos los listeners de este plugin.
+     *  3. Recarga config.yml.
+     *  4. Reinicializa todos los managers con la nueva configuración.
+     *  5. Vuelve a registrar el listener y el comando.
+     */
     public void reloadPlugin() {
         if (altarManager != null) {
             altarManager.shutdown();
@@ -93,6 +119,7 @@ public final class VtAlters extends JavaPlugin {
         HandlerList.unregisterAll(this);
 
         reloadConfig();
+        ensureConfigDefaults();
 
         errorHandler.clearErrors();
         dataManager.reloadConfig();

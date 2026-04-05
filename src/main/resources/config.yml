@@ -8,6 +8,16 @@
 language: es
 
 #================================#
+#    Configuración de Mensajes    #
+#================================#
+messages:
+  # Prefijo que se muestra antes de cada mensaje del plugin.
+  # Puedes usar códigos de color de Minecraft con '&'. Ejemplo: &c para rojo.
+  # Valores por defecto:
+  #   - "&e&lVtAlters &8&l»&r " (amarillo negrita + separador gris + reset)
+  prefix: "&e&lVtAlters &8&l»&r "
+
+#================================#
 #      Configuración de Altares   #
 #================================#
 altar:

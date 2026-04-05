@@ -32,7 +32,8 @@ public class LanguageManager {
 
     public void loadMessages() {
         String lang = plugin.getConfig().getString("language", "en");
-        prefix = ChatColor.translateAlternateColorCodes('&', "&e&lVtAlters &8&l»&r ");
+        String prefixConfig = plugin.getConfig().getString("messages.prefix", "&e&lVtAlters &8&l»&r ");
+        prefix = ChatColor.translateAlternateColorCodes('&', prefixConfig);
 
         File langFolder = new File(plugin.getDataFolder(), "language");
         if (!langFolder.exists()) {
