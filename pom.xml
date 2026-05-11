@@ -82,9 +82,9 @@
         <dependency>
             <groupId>org.mineacademy.plugin</groupId>
             <artifactId>MythicMobs</artifactId>
-            <version>5.6.1</version>
+            <version>5.11.2</version>
             <scope>system</scope>
-            <systemPath>${user.home}/.m2/repository/org/mineacademy/plugin/MythicMobs/5.6.1/MythicMobs-5.6.1.jar</systemPath>
+            <systemPath>${project.basedir}/MythicMobs-5.11.2.jar</systemPath>
         </dependency>
 
         <!-- Nexo - dependencia opcional (softdepend) -->

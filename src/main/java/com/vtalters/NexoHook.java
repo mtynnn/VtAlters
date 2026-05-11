@@ -10,6 +10,7 @@ package com.vtalters;
 
 import com.nexomc.nexo.api.NexoItems;
 import com.nexomc.nexo.items.ItemBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -28,9 +29,11 @@ import org.bukkit.inventory.ItemStack;
  */
 public class NexoHook {
 
-    private final boolean available;
+    private final VtAlters plugin;
+    private boolean classAvailable;
 
-    public NexoHook() {
+    public NexoHook(VtAlters plugin) {
+        this.plugin = plugin;
         boolean loaded;
         try {
             Class.forName("com.nexomc.nexo.api.NexoItems");
@@ -38,12 +41,14 @@ public class NexoHook {
         } catch (ClassNotFoundException e) {
             loaded = false;
         }
-        this.available = loaded;
+        this.classAvailable = loaded;
     }
 
     /** Returns true when the Nexo plugin is present and usable. */
     public boolean isAvailable() {
-        return available;
+        if (!classAvailable) return false;
+        if (!plugin.getConfig().getBoolean("nexo.enabled", true)) return false;
+        return Bukkit.getPluginManager().isPluginEnabled("Nexo");
     }
 
     /**
@@ -51,7 +56,7 @@ public class NexoHook {
      * a Nexo item or if Nexo is not installed.
      */
     public String getNexoId(ItemStack item) {
-        if (!available || item == null) return null;
+        if (!isAvailable() || item == null) return null;
         try {
             return NexoItems.idFromItem(item);
         } catch (Exception e) {
@@ -69,7 +74,7 @@ public class NexoHook {
      * Returns null when the ID does not exist or Nexo is not available.
      */
     public ItemStack buildNexoItem(String nexoId) {
-        if (!available || nexoId == null || nexoId.isEmpty()) return null;
+        if (!isAvailable() || nexoId == null || nexoId.isEmpty()) return null;
         try {
             ItemBuilder builder = NexoItems.itemFromId(nexoId);
             return builder != null ? builder.build() : null;
@@ -89,7 +94,7 @@ public class NexoHook {
     public boolean itemsMatch(ItemStack a, ItemStack b) {
         if (a == null || b == null) return false;
 
-        if (available) {
+        if (isAvailable()) {
             String idA = getNexoId(a);
             String idB = getNexoId(b);
 
@@ -107,7 +112,7 @@ public class NexoHook {
     public String getDisplayName(ItemStack item) {
         if (item == null) return "Unknown";
 
-        if (available) {
+        if (isAvailable()) {
             String nexoId = getNexoId(item);
             if (nexoId != null) return "[Nexo] " + nexoId;
         }

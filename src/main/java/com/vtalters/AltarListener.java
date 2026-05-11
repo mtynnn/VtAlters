@@ -47,8 +47,8 @@ public class AltarListener implements Listener {
         if (altarManager.isAltarBlock(event.getClickedBlock().getLocation())) {
              if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getHand() == EquipmentSlot.HAND) {
                 altarManager.handleBlockClick(player, event.getClickedBlock());
+                event.setCancelled(true);
              }
-             event.setCancelled(true);
         }
     }
 

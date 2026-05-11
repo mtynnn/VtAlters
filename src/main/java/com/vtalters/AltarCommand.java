@@ -37,6 +37,36 @@ public class AltarCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
+            if (args.length == 0) {
+                sender.sendMessage("/" + label + " <reload|list>");
+                return true;
+            }
+            String sub = args[0].toLowerCase();
+            if (sub.equals("reload")) {
+                if (!sender.hasPermission("vtalters.command.reload")) {
+                    lang.sendMessage(sender, "general.no-permission");
+                    return true;
+                }
+                plugin.reloadPlugin();
+                lang.sendMessage(sender, "general.reloaded");
+                return true;
+            }
+            if (sub.equals("list")) {
+                if (!sender.hasPermission("vtalters.command.list")) {
+                    lang.sendMessage(sender, "general.no-permission");
+                    return true;
+                }
+                FileConfiguration data = plugin.getDataManager().getConfig();
+                lang.sendRawMessage(sender, "altar-commands.list-header");
+                if (!data.isConfigurationSection("altars")
+                        || data.getConfigurationSection("altars").getKeys(false).isEmpty()) {
+                    lang.sendRawMessage(sender, "altar-commands.list-empty");
+                } else {
+                    data.getConfigurationSection("altars").getKeys(false)
+                            .forEach(name -> lang.sendRawMessage(sender, "altar-commands.list-entry", "%name%", name));
+                }
+                return true;
+            }
             lang.sendRawMessage(sender, "general.not-a-player");
             return true;
         }
@@ -435,7 +465,7 @@ public class AltarCommand implements CommandExecutor, TabCompleter {
     private void saveAndReload() {
         plugin.getDataManager().saveConfig();
         plugin.getDataManager().reloadConfig();
-        plugin.getAltarManager().loadAltars();
+        plugin.getAltarManager().reloadAltarsRuntime();
     }
 
     private void sendHelpMessage(Player player, String label) {

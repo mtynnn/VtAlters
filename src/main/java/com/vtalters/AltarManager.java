@@ -226,6 +226,9 @@ public class AltarManager {
         // Replace any existing item on this pedestal
         if (placedItemsDisplay.containsKey(blockLoc)) {
             retrieveItem(player, blockLoc);
+            if (placedItemsDisplay.containsKey(blockLoc)) {
+                return;
+            }
         }
 
         Item dropped = blockLoc.getWorld().dropItem(displayLoc, single);
@@ -249,9 +252,7 @@ public class AltarManager {
      * Prefers items not yet placed on any pedestal.
      */
     private String getFirstMissingRequiredItemName(Altar altar) {
-        // Collect items already placed
-        List<ItemStack> placed = placedItemsDisplay.values().stream()
-                .map(Item::getItemStack).collect(Collectors.toList());
+        List<ItemStack> placed = getPlacedItemsForAltar(altar);
 
         // Check standard required items first
         for (Map.Entry<ItemStack, Integer> req : altar.getRequiredItems().entrySet()) {
@@ -292,7 +293,9 @@ public class AltarManager {
 
         boolean preventTheft = plugin.getConfig().getBoolean("altar.prevent-item-theft", true);
         if (preventTheft && itemPlacers.containsKey(blockLoc)) {
-            if (!player.getUniqueId().equals(itemPlacers.get(blockLoc))) {
+            UUID owner = itemPlacers.get(blockLoc);
+            boolean ownerOnline = Bukkit.getPlayer(owner) != null;
+            if (!player.getUniqueId().equals(owner) && ownerOnline) {
                 lang.sendMessage(player, "altar-interaction.not-your-item");
                 return;
             }
@@ -442,7 +445,7 @@ public class AltarManager {
         centralDisplay.setVelocity(new Vector(0, 0, 0));
         ceremonyItems.add(centralDisplay);
 
-        new BukkitRunnable() {
+        BukkitTask animationTask = new BukkitRunnable() {
             private final long PRE_DELAY      = 40L;
             private final long SPIRAL_DUR     = 14L;
             private final long ORBIT_DUR      = 60L;
@@ -548,6 +551,7 @@ public class AltarManager {
                 ticks++;
             }
         }.runTaskTimer(plugin, 0L, 1L);
+        activeTasks.add(animationTask);
     }
 
     private void spawnTrailParticles(ArmorStand as, Location vis) {
@@ -675,8 +679,7 @@ public class AltarManager {
         boolean noNexo     = altar.getRequiredItemNexoIds().isEmpty();
         if (noStandard && noNexo) return true;
 
-        List<ItemStack> placed = placedItemsDisplay.values().stream()
-                .map(Item::getItemStack).collect(Collectors.toList());
+        List<ItemStack> placed = getPlacedItemsForAltar(altar);
 
         // Check standard Bukkit required items
         for (Map.Entry<ItemStack, Integer> req : altar.getRequiredItems().entrySet()) {
@@ -714,6 +717,15 @@ public class AltarManager {
             if (altar.getPedestalLocations().contains(bl)) return altar;
         }
         return null;
+    }
+
+    private List<ItemStack> getPlacedItemsForAltar(Altar altar) {
+        return altar.getPedestalLocations().stream()
+                .filter(Objects::nonNull)
+                .map(p -> placedItemsDisplay.get(p.getBlock().getLocation()))
+                .filter(Objects::nonNull)
+                .map(Item::getItemStack)
+                .collect(Collectors.toList());
     }
 
     public boolean isAltarBlock(Location loc) {
@@ -762,5 +774,18 @@ public class AltarManager {
         placedItemsDisplay.clear();
         summoningAltars.clear();
         itemPlacers.clear();
+    }
+
+    public void reloadAltarsRuntime() {
+        activeTasks.forEach(BukkitTask::cancel);
+        activeTasks.clear();
+        new ArrayList<>(placedItemsDisplay.values()).forEach(Entity::remove);
+        placedItemsDisplay.clear();
+        itemPlacers.clear();
+        peripheralParticleTasks.values().forEach(BukkitTask::cancel);
+        peripheralParticleTasks.clear();
+        summoningAltars.clear();
+        loadAltars();
+        startReadyAltarEffectTask();
     }
 }

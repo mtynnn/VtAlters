@@ -44,7 +44,7 @@ public final class VtAlters extends JavaPlugin {
         ensureConfigDefaults();
 
         this.errorHandler    = new ErrorHandler(this);
-        this.nexoHook        = new NexoHook();
+        this.nexoHook        = new NexoHook(this);
         this.dataManager     = new DataManager(this);
         this.languageManager = new LanguageManager(this);
         this.wandManager     = new WandManager(this);
