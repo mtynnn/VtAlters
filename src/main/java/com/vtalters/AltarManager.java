@@ -16,9 +16,11 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
@@ -61,6 +63,9 @@ public class AltarManager {
 
     /** Offset between ArmorStand feet and its displayed helmet item */
     private static final double ARMOR_STAND_HEAD_OFFSET = 0.75;
+    private static final String RITUAL_MARKER_KEY = "ritual";
+    private static final String RITUAL_ALTAR_KEY = "ritual_altar";
+    private static final String RITUAL_CONTRIBUTORS_KEY = "ritual_contributors";
 
     public AltarManager(VtAlters plugin) {
         this.plugin = plugin;
@@ -432,6 +437,7 @@ public class AltarManager {
         Location finalPoint   = center.clone().add(0.5, 5, 0.5);
         Location orbitPoint   = center.clone().add(0.5, 4, 0.5);
         double   orbitRadius  = 2.0;
+        RitualContributionSnapshot ritualSnapshot = buildRitualSnapshot(altar, player);
 
         List<Item> ceremonyItems = new ArrayList<>(placedItemsDisplay.values());
         placedItemsDisplay.clear();
@@ -538,7 +544,7 @@ public class AltarManager {
                     finished = true;
                     flyingEntities.keySet().forEach(as -> { if (as.isValid()) as.teleport(finalPoint.clone().subtract(0, ARMOR_STAND_HEAD_OFFSET, 0)); });
                     spawnConvergenceBurst(finalPoint);
-                    summonBoss(altar, player);
+                    summonBoss(altar, player, ritualSnapshot);
                     new BukkitRunnable() {
                         @Override public void run() {
                             flyingEntities.keySet().forEach(as -> { if (as.isValid()) as.remove(); });
@@ -577,20 +583,24 @@ public class AltarManager {
     // BOSS SUMMONING
     // =========================================================================
 
-    private void summonBoss(Altar altar, Player player) {
+    private void summonBoss(Altar altar, Player player, RitualContributionSnapshot ritualSnapshot) {
         Location center = altar.getCenterLocation();
         if (center == null || center.getWorld() == null) return;
 
         lang.sendMessage(player, "altar-interaction.boss-spawned");
         Location spawnLoc = center.clone().add(0.5, 3, 0.5);
         String bossName = altar.getBossName();
+        LivingEntity spawnedBoss = null;
 
         if (bossName.equalsIgnoreCase("DefaultBoss")) {
-            spawnLoc.getWorld().spawn(spawnLoc, Zombie.class);
+            spawnedBoss = spawnLoc.getWorld().spawn(spawnLoc, Zombie.class);
             plugin.getLogger().info("Altar '" + altar.getName() + "' summoned a default Zombie.");
         } else {
             try {
-                MythicBukkit.inst().getAPIHelper().spawnMythicMob(bossName, spawnLoc, 1);
+                Entity spawnedEntity = MythicBukkit.inst().getAPIHelper().spawnMythicMob(bossName, spawnLoc, 1);
+                if (spawnedEntity instanceof LivingEntity livingEntity) {
+                    spawnedBoss = livingEntity;
+                }
             } catch (InvalidMobTypeException e) {
                 plugin.getErrorHandler().logError(
                     "Invalid MythicMob name '" + bossName + "' for altar '" + altar.getName() + "'. " +
@@ -601,6 +611,7 @@ public class AltarManager {
                 return;
             }
         }
+        attachRitualData(spawnedBoss, altar, ritualSnapshot);
 
         playSoundFromConfig(center, "effects.sounds.summon-spawn");
 
@@ -718,6 +729,52 @@ public class AltarManager {
         }
         return null;
     }
+
+    private RitualContributionSnapshot buildRitualSnapshot(Altar altar, Player activator) {
+        Map<UUID, Integer> points = new HashMap<>();
+        for (Location pedestalLoc : altar.getPedestalLocations()) {
+            if (pedestalLoc == null) {
+                continue;
+            }
+            Location blockLoc = pedestalLoc.getBlock().getLocation();
+            Item item = placedItemsDisplay.get(blockLoc);
+            UUID owner = itemPlacers.get(blockLoc);
+            if (item == null || owner == null) {
+                continue;
+            }
+            if (isRequiredItem(altar, item.getItemStack())) {
+                points.merge(owner, 1, Integer::sum);
+            }
+        }
+
+        points.merge(activator.getUniqueId(), 2, Integer::sum);
+        return new RitualContributionSnapshot(points);
+    }
+
+    private void attachRitualData(LivingEntity boss, Altar altar, RitualContributionSnapshot snapshot) {
+        if (boss == null || snapshot == null || snapshot.points().isEmpty()) {
+            return;
+        }
+        NamespacedKey ritualKey = new NamespacedKey(plugin, RITUAL_MARKER_KEY);
+        NamespacedKey altarKey = new NamespacedKey(plugin, RITUAL_ALTAR_KEY);
+        NamespacedKey contributorsKey = new NamespacedKey(plugin, RITUAL_CONTRIBUTORS_KEY);
+        boss.getPersistentDataContainer().set(ritualKey, PersistentDataType.BYTE, (byte) 1);
+        boss.getPersistentDataContainer().set(altarKey, PersistentDataType.STRING, altar.getName());
+        boss.getPersistentDataContainer().set(contributorsKey, PersistentDataType.STRING, serializeContributors(snapshot.points()));
+    }
+
+    private String serializeContributors(Map<UUID, Integer> points) {
+        StringBuilder builder = new StringBuilder();
+        for (Map.Entry<UUID, Integer> entry : points.entrySet()) {
+            if (builder.length() > 0) {
+                builder.append(';');
+            }
+            builder.append(entry.getKey()).append(':').append(entry.getValue());
+        }
+        return builder.toString();
+    }
+
+    private record RitualContributionSnapshot(Map<UUID, Integer> points) { }
 
     private List<ItemStack> getPlacedItemsForAltar(Altar altar) {
         return altar.getPedestalLocations().stream()
