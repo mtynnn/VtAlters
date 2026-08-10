@@ -2,6 +2,8 @@
 
 Altares rituales para Paper que invocan jefes de MythicMobs. Admite objetos Bukkit y, de forma opcional, objetos personalizados de Nexo.
 
+Repositorio oficial: [ValerinSMP/vAltars](https://github.com/ValerinSMP/vAltars).
+
 ## Requisitos
 
 - Paper 1.21.11 o superior.
@@ -100,6 +102,8 @@ El inventario de Bukkit y el archivo YAML no forman una transacción atómica ú
 ```
 
 El artefacto se genera en `build/libs/vAltars-1.1.0.jar`.
+
+Último artefacto verificado: 123535 bytes, SHA-256 `D8FB0A6022723BF800046EB7A7404D80BD0ED70805AA94B44B9BAAD7452ED5B8` (26 pruebas superadas).
 
 ## Licencia
 
