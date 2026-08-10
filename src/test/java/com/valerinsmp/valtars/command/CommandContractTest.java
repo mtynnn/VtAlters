@@ -36,6 +36,7 @@ class CommandContractTest {
                     new InputStreamReader(stream, StandardCharsets.UTF_8));
             assertEquals("vAltars", yaml.getString("name"));
             assertEquals("com.valerinsmp.valtars.VAltarsPlugin", yaml.getString("main"));
+            assertEquals("https://github.com/ValerinSMP/vAltars", yaml.getString("website"));
             assertNotNull(yaml.getConfigurationSection("commands.valtars"));
             assertEquals(List.of("altar", "vta", "vtalters"), yaml.getStringList("commands.valtarsadmin.aliases"));
             assertTrue(yaml.isSet("permissions.valtars.admin"));
@@ -58,6 +59,8 @@ class CommandContractTest {
                 assertNotNull(yaml.getString("gui.teleported"));
                 assertNotNull(yaml.getString("gui.teleport-failed"));
                 assertNotNull(yaml.getString("help.descriptions.gui"));
+                assertEquals("https://github.com/ValerinSMP/vAltars",
+                        yaml.getString("about.repository-url"));
             }
         }
     }

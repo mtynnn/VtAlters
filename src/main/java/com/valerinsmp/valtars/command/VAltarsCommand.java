@@ -220,7 +220,7 @@ public final class VAltarsCommand implements CommandExecutor, TabCompleter {
     private void about(CommandSender sender) {
         plugin.messages().sendLines(sender, "about.lines",
                 Placeholder.unparsed("version", plugin.getPluginMeta().getVersion()));
-        String url = plugin.messages().text("about.repository-url", "https://github.com/ValerinSMP/VtAlters");
+        String url = plugin.messages().text("about.repository-url", "https://github.com/ValerinSMP/vAltars");
         Component link = plugin.messages().component("about.repository-label")
                 .hoverEvent(HoverEvent.showText(plugin.messages().component("about.repository-hover")))
                 .clickEvent(ClickEvent.openUrl(url));
