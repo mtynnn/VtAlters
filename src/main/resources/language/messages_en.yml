@@ -1,85 +1,111 @@
-# English language file for VtAlters
-# You can use standard Minecraft color codes with '&'. Example: &c for red.
-# Placeholders like %player%, %name%, etc., are replaced automatically by the plugin.
+prefix: "<primary><bold>vAltars</bold></primary> <dark_gray>»</dark_gray> "
 
-# ── General messages ────────────────────────────────────────────────────────
+emojis:
+  success: "✔"
+  error: "✖"
+  warning: "⚠"
+  altar: "✦"
+
 general:
-  reloaded: '&aPlugin reloaded successfully.'
-  not-a-player: '&cThis command can only be executed by a player.'
-  no-permission: '&cYou do not have permission to use this command.'
-  usage: '&cUsage: %usage%'
-  plugin-has-errors: '&c[VtAlters] The plugin has detected errors and may not function correctly. Reasons: &e%reasons%&c. Check the console for details and run &e/vta reload&c after fixing.'
+  reloaded: "<prefix><success><emoji:success> Configuration and messages reloaded.</success>"
+  reload-failed: "<prefix><error><emoji:error> Reload rejected; the previous configuration remains active.</error>"
+  not-a-player: "<prefix><error>This command requires a player.</error>"
+  no-permission: "<prefix><error>You do not have permission to use this command.</error>"
+  unknown-command: "<prefix><error>Unknown subcommand. Use <white>/valtars help</white>.</error>"
+  usage: "<prefix><error>Usage: <white><usage></white></error>"
 
-# ── Wand messages ────────────────────────────────────────────────────────────
 wand:
-  given: '&aYou have been given the Altar Setup Wand.'
-  selection: '&dSelected block at &ex: %x%&d, &ey: %y%&d, &ez: %z%&d.'
-  error-no-selection: '&cYou must select a block with the wand first!'
+  given: "<prefix><success>You received the altar setup wand.</success>"
+  selection: "<prefix><primary>Selected block: <white><x>, <y>, <z></white>.</primary>"
+  error-no-selection: "<prefix><error>Select a block with the wand first.</error>"
 
-# ── Altar command messages (create, delete, list, edit) ─────────────────────
 altar-commands:
-  # Creation
-  created: '&aSuccessfully created altar &e%name%&a.'
-  error-altar-exists: '&cAn altar named &e%name% &calready exists.'
+  created: "<prefix><success>Altar <primary><name></primary> created.</success>"
+  deleted: "<prefix><success>Altar <primary><name></primary> deleted.</success>"
+  center-set: "<prefix><success>Altar center updated.</success>"
+  boss-set: "<prefix><success>Altar MythicMob updated.</success>"
+  center-item-set: "<prefix><success>Activation item updated.</success>"
+  pedestal-added: "<prefix><success>Pedestal added.</success>"
+  pedestal-removed: "<prefix><success>Pedestal(s) updated.</success>"
+  required-item-set: "<prefix><success>Requirement assigned to the next pedestal.</success>"
+  required-item-removed: "<prefix><success>Item requirement(s) updated.</success>"
+  list-header: "<primary><bold>Registered altars</bold></primary>"
+  list-entry: "<dark_gray>•</dark_gray> <white><name></white>"
+  list-empty: "<muted>No altars are registered.</muted>"
+  error-no-altar: "<prefix><error>Altar <white><name></white> does not exist.</error>"
+  error-altar-exists: "<prefix><error>Altar <white><name></white> already exists.</error>"
+  error-altar-busy: "<prefix><warning>Altar <white><name></white> has placed items or an active ritual.</warning>"
+  error-conflict: "<prefix><error>The change conflicts with altar geometry or requirements.</error>"
+  error-invalid: "<prefix><error>The name, item, amount, or configuration is invalid.</error>"
+  error-invalid-number: "<prefix><error>The amount must be a positive integer.</error>"
+  error-no-item-in-hand: "<prefix><error>Hold an item in your main hand.</error>"
 
-  # Deletion
-  deleted: '&aSuccessfully deleted altar &e%name%&a.'
-  error-no-altar: '&cCould not find an altar named &e%name%&c.'
-
-  # Listing
-  list-header: '&6--- &eAvailable Altars &6---'
-  list-entry: '&8- &7%name%'
-  list-empty: ' &7(No altars found)'
-
-  # Editing
-  center-set: '&aAltar center set to your selection.'
-  boss-set: '&aBoss for altar &e%name% &aset to &e%mob%&a.'
-  center-item-set: '&aActivation item set to &e%item_name%&a.'
-  pedestal-added: '&aPedestal added to the altar.'
-  pedestal-removed: '&aPedestal removed from your selection.'
-  pedestals-cleared: '&aAll pedestals cleared for altar &e%name%&a.'
-  required-item-set: '&aSet &e%amount%x %item_name% &aas a required item.'
-  required-item-removed: '&aMatching required item(s) removed from the altar.'
-  required-items-cleared: '&aAll required items cleared from the altar.'
-
-  # Editing errors
-  error-no-item-in-hand: '&cYou must be holding an item in your main hand.'
-  error-must-set-center: '&cYou must set the altar''s center before adding pedestals.'
-  error-pedestal-too-far: '&cThe selected pedestal is too far from the center (Max radius: %radius% blocks).'
-  error-pedestal-already-exists: '&cThis block is already registered as a pedestal.'
-  error-pedestal-not-found: '&cThe selected block is not a registered pedestal for this altar.'
-  error-no-pedestals-to-clear: '&cAltar &e%name% &chas no pedestals to clear.'
-  error-invalid-number: '&cPlease provide a valid positive number.'
-  error-no-required-items-to-remove: '&cThis altar has no required items to remove.'
-  error-no-matching-item-to-remove: '&cNo required item matched the item in your hand.'
-  error-must-add-pedestals-first: '&cYou must add pedestals before requiring items.'
-  error-items-exceed-pedestals: '&cCannot add. Total required items (%total_required%) would exceed pedestal count (%pedestal_count%).'
-
-# ── Altar interaction messages (in-game) ────────────────────────────────────
 altar-interaction:
-  not-ready: '&cThe altar is not ready yet. More items are required on the pedestals.'
-  wrong-item: '&cYou used the wrong item on the altar.'
-  wrong-pedestal-item: '&c&l%item% &cis not the correct item for this pedestal. Try: &e%hint%&c.'
-  ritual-start: '&5The ritual has begun...'
-  boss-spawned: '&aThe boss has been summoned!'
-  summoning: '&eA ritual is already in progress at this altar.'
-  not-your-item: '&cYou cannot take an item you did not place.'
-  boss-summon-broadcast: '&6&lA Boss has Appeared! &e%player% &chas summoned &4&l%boss% &cvia an altar!'
-  error-invalid-boss: '&cError summoning boss: the type ''%boss%'' is invalid. Contact a server administrator.'
+  not-ready: "<prefix><warning>The altar is still missing required items.</warning>"
+  wrong-item: "<prefix><error>That is not the activation item.</error>"
+  not-enough-activation: "<prefix><warning>You need <amount> activation items.</warning>"
+  wrong-pedestal-item: "<prefix><error><item> is not needed now.</error> <muted>Missing: <hint>.</muted>"
+  pedestal-hologram: "<primary><bold><amount>x</bold></primary> <item>"
+  pedestal-full: "<prefix><warning>That pedestal cannot accept any more units.</warning>"
+  ritual-start: "<prefix><primary><emoji:altar> The ritual has begun...</primary>"
+  boss-spawned: "<prefix><success><emoji:success> The boss was summoned.</success>"
+  summoning: "<prefix><warning>A ritual is already active at this altar.</warning>"
+  not-your-item: "<prefix><error>You cannot retrieve an item placed by someone else.</error>"
+  world-unavailable: "<prefix><error>This altar's world is not loaded.</error>"
+  refund-pending: "<prefix><warning>Not enough inventory space: the refund was saved for your next login.</warning>"
+  placements-expired: "<prefix><warning>The altar reset after inactivity or abandonment; its items were returned.</warning>"
+  boss-summon-broadcast: "<primary><emoji:altar> <player></primary> <muted>summoned</muted> <white><boss></white><muted>.</muted>"
+  error-invalid-boss: "<prefix><error><emoji:error> Could not summon <white><boss></white>; items were returned or saved.</error>"
 
-# ── Help messages ────────────────────────────────────────────────────────────
+gui:
+  title: "<primary><bold>Altars</bold></primary> <muted>· <page>/<pages></muted>"
+  altar-name: "<primary><bold><name></bold></primary>"
+  altar-lore:
+    - "<muted>Boss:</muted> <white><boss></white>"
+    - "<muted>Location:</muted> <white><world> · <coordinates></white>"
+    - "<muted>Pedestals:</muted> <white><pedestals></white>"
+    - "<muted>Center items:</muted> <white><activation></white>"
+    - "<muted>Status:</muted> <state>"
+    - ""
+    - "<success>Click to teleport.</success>"
+  state-busy: "<warning>Busy</warning>"
+  state-available: "<success>Available</success>"
+  previous: "<primary>Previous page</primary>"
+  next: "<primary>Next page</primary>"
+  close: "<error>Close</error>"
+  teleported: "<prefix><success>Teleported to altar <white><name></white>.</success>"
+  teleport-failed: "<prefix><error>Could not teleport to altar <white><name></white>.</error>"
+  world-unavailable: "<prefix><error>The world or center for altar <white><name></white> is unavailable.</error>"
+
 help:
-  header: '&6--- &e&lVtAlters Help &6---'
-  create: '&a/%label% create <name> &7- Create a new altar.'
-  delete: '&a/%label% delete <name> &7- Delete an altar.'
-  list: '&a/%label% list &7- List all altars.'
-  wand: '&a/%label% wand &7- Get the setup wand.'
-  reload: '&a/%label% reload &7- Reload the plugin.'
-  edit-header: '&6--- &eEdit Commands &6---'
-  edit-set-center: '&a/%label% edit <name> set center &7- Set the center block.'
-  edit-set-mob: '&a/%label% edit <name> set mob <mob> &7- Set the boss to summon.'
-  edit-add-itemcenter: '&a/%label% edit <name> add itemcenter &7- Set the activation item (Nexo compatible).'
-  edit-add-pedestal: '&a/%label% edit <name> add pedestal &7- Add a pedestal block.'
-  edit-add-item: '&a/%label% edit <name> add item <amount> &7- Add a required item (Nexo compatible).'
-  edit-remove-pedestal: '&a/%label% edit <name> remove pedestal [all] &7- Remove a pedestal or all.'
-  edit-remove-item: '&a/%label% edit <name> remove item [all] &7- Remove a required item or all.'
+  header: "<newline><primary><bold>vAltars</bold></primary> <muted>| Help <page>/<pages></muted><newline>"
+  footer: "<newline><muted>Click a command to suggest it.</muted><newline>"
+  invalid-page: "<prefix><error>Invalid page. Range: 1-<pages>.</error>"
+  descriptions:
+    help: "Shows the available help."
+    about: "Shows plugin information."
+    reload: "Reloads configuration and messages."
+    create: "Creates an altar definition."
+    delete: "Deletes an inactive altar."
+    list: "Lists registered altars."
+    gui: "Opens the altar browser and teleport menu."
+    wand: "Gives the selection wand."
+    set-center: "Sets the central block."
+    set-mob: "Sets the MythicMob."
+    itemcenter: "Sets the activation item and amount."
+    add-pedestal: "Adds the selected block as a pedestal."
+    add-item: "Adds a Bukkit or Nexo requirement."
+    remove-pedestal: "Removes one or all pedestals."
+    remove-item: "Removes one or all requirements."
+
+about:
+  lines:
+    - ""
+    - "<primary><bold>vAltars <version></bold></primary>"
+    - "<muted>Safe MythicMobs ritual altars.</muted>"
+    - "<gray>Author: <white>ValerinSMP</white></gray>"
+    - "<gray>Platform: <white>Paper 1.21.11+</white></gray>"
+    - "<gray>Integrations: <white>MythicMobs and optional Nexo</white></gray>"
+  repository-label: "<primary>vAltars repository</primary>"
+  repository-hover: "<muted>Open the GitHub repository</muted>"
+  repository-url: "https://github.com/ValerinSMP/VtAlters"

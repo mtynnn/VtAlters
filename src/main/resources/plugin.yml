@@ -1,42 +1,64 @@
-name: VtAlters
-version: '1.1'
-main: com.vtalters.VtAlters
-api-version: '1.17'
-author: thangks
-description: Plugin para invocar jefes mediante altares rituales usando MythicMobs. Soporta items personalizados de Nexo.
+name: vAltars
+version: '${version}'
+main: com.valerinsmp.valtars.VAltarsPlugin
+api-version: '1.21.11'
+author: ValerinSMP
+contributors: [thangks]
+description: Altares rituales seguros para invocar MythicMobs, con soporte opcional de Nexo.
+website: https://github.com/ValerinSMP/VtAlters
 depend: [MythicMobs]
 softdepend: [Nexo]
+
 commands:
-  vtalters:
-    description: Comando principal del plugin VtAlters.
-    usage: /<command> [subcomando]
-    aliases: [altar, vta]
+  valtars:
+    description: Ayuda e información pública de vAltars.
+    usage: /<command> <help|about>
+  valtarsadmin:
+    description: Administración de altares rituales.
+    usage: /<command> <help|about|reload|create|delete|list|gui|wand|edit>
+    aliases: [altar, vta, vtalters]
+
 permissions:
-  vtalters.admin:
-    description: Concede acceso a todos los comandos de VtAlters.
+  valtars.admin:
+    description: Concede todos los permisos administrativos de vAltars.
     default: op
     children:
-      vtalters.command.create: true
-      vtalters.command.delete: true
-      vtalters.command.list: true
-      vtalters.command.wand: true
-      vtalters.command.reload: true
-      vtalters.command.edit: true
+      valtars.command.create: true
+      valtars.command.delete: true
+      valtars.command.list: true
+      valtars.command.teleport: true
+      valtars.command.wand: true
+      valtars.command.reload: true
+      valtars.command.edit: true
+  valtars.command.create:
+    default: op
+  valtars.command.delete:
+    default: op
+  valtars.command.list:
+    default: op
+  valtars.command.teleport:
+    default: op
+  valtars.command.wand:
+    default: op
+  valtars.command.reload:
+    default: op
+  valtars.command.edit:
+    default: op
+
+  # Compatibilidad con asignaciones existentes. El código acepta ambos namespaces.
+  vtalters.admin:
+    default: false
   vtalters.command.create:
-    description: Permite crear nuevos altares.
-    default: op
+    default: false
   vtalters.command.delete:
-    description: Permite eliminar altares.
-    default: op
+    default: false
   vtalters.command.list:
-    description: Permite listar todos los altares.
-    default: op
+    default: false
+  vtalters.command.teleport:
+    default: false
   vtalters.command.wand:
-    description: Permite obtener la varita de configuracion.
-    default: op
+    default: false
   vtalters.command.reload:
-    description: Permite recargar el plugin.
-    default: op
+    default: false
   vtalters.command.edit:
-    description: Permite editar altares.
-    default: op
+    default: false

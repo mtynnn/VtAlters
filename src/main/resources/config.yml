@@ -1,80 +1,32 @@
-#================================#
-#      Configuración General      #
-#================================#
-# Selecciona el archivo de idioma para los mensajes del plugin.
-# Corresponde al archivo en la carpeta 'language'.
-# Ejemplo: si tienes 'messages_es.yml', escribe 'es'.
-# Disponibles: Español: es | Inglés: en | Vietnamita: vi
+# vAltars 1.1.0 — configuración de comportamiento
 language: es
 
-#================================#
-#    Configuración de Mensajes    #
-#================================#
-messages:
-  # Prefijo que se muestra antes de cada mensaje del plugin.
-  # Puedes usar códigos de color de Minecraft con '&'. Ejemplo: &c para rojo.
-  # Valores por defecto:
-  #   - "&e&lVtAlters &8&l»&r " (amarillo negrita + separador gris + reset)
-  prefix: "&e&lVtAlters &8&l»&r "
-
-#================================#
-#      Configuración de Altares   #
-#================================#
 altar:
-  # Impide que otros jugadores roben items colocados en pedestales.
-  # true  → solo quien colocó el item puede recuperarlo.
-  # false → cualquier jugador puede tomarlo.
   prevent-item-theft: true
-
-  # Emite un anuncio global al servidor cuando se invoca un jefe.
   broadcast-summon:
     enabled: true
-
-  # Radio máximo (en bloques) desde el bloque central hasta donde se
-  # puede registrar un pedestal.
   max-pedestal-radius: 10.0
+  placement-expiry:
+    # Reinicia el altar si nadie añade otro objeto durante este tiempo.
+    idle-seconds: 45
+    # Reinicia antes si ningún contribuyente sigue conectado dentro de este radio.
+    max-player-distance: 16.0
 
-#================================#
-#      Integración con Nexo       #
-#================================#
-nexo:
-  # Activa o desactiva el soporte de items de Nexo aunque el plugin esté cargado.
-  # Ponlo en false si quieres deshabilitar la integración sin desinstalar Nexo.
-  enabled: true
-
-#================================#
-#      Configuración de Efectos   #
-#================================#
 effects:
-  # Altura de los distintos efectos visuales.
-  # Se mide desde la base del bloque (0.0 = suelo del bloque).
   heights:
-    # Altura a la que flota el item sobre el pedestal.
     pedestal: 1.2
-    # Altura de la partícula simple sobre el bloque central cuando el altar está listo.
     ready-particle: 1.2
-    # Desplazamiento vertical de los anillos de ritual respecto al item central.
-    # 0.0 = exactamente al nivel del item.
     ritual-ring-offset: 0.0
-
-  # Tipos de partículas para los distintos efectos.
-  # Lista de nombres válidos: https://jd.papermc.io/paper/1.20/ (Particle enum)
-  # Usa "none" para desactivar un efecto de partículas.
   particles:
-    altar-ready: "SOUL_FIRE_FLAME"
-    ritual-ring: "SOUL_FIRE_FLAME"
-    pedestal-ready: "END_ROD"
-    animation-trail: "ENCHANTMENT_TABLE"
-    animation-trail-secondary: "END_ROD"
-    convergence-burst: "END_ROD"
-
-  # Sonidos para cada fase del ritual.
-  # Formato: "NOMBRE_SONIDO,Volumen,Tono"
-  # Ejemplo: "ENTITY_PLAYER_LEVELUP,1.0,1.0"
-  # Lista de nombres válidos: https://jd.papermc.io/paper/1.20/ (Sound enum)
+    altar-ready: SOUL_FIRE_FLAME
+    ritual-ring: SOUL_FIRE_FLAME
+    pedestal-ready: END_ROD
+    animation-trail: ENCHANT
+    animation-trail-secondary: END_ROD
+    convergence-burst: END_ROD
   sounds:
-    ritual-start: "BLOCK_BEACON_ACTIVATE,1.5,0.8"
-    ritual-ambient-loop: "BLOCK_CONDUIT_AMBIENT_SHORT,1.0,1.2"
-    ritual-items-fly: "ENTITY_PHANTOM_SWOOP,0.7,1.5"
-    ritual-converge: "ENTITY_GENERIC_EXPLODE,2.0,1.2"
-    summon-spawn: "ENTITY_WITHER_SPAWN,2.0,1.0"
+    ritual-start: BLOCK_BEACON_ACTIVATE,1.5,0.8
+    ritual-ambient-loop: BLOCK_CONDUIT_AMBIENT_SHORT,1.0,1.2
+    ritual-items-fly: ENTITY_PHANTOM_SWOOP,0.7,1.5
+    ritual-converge: ENTITY_GENERIC_EXPLODE,2.0,1.2
+    summon-spawn: ENTITY_WITHER_SPAWN,2.0,1.0

@@ -1,85 +1,111 @@
-# File ngôn ngữ tiếng Việt cho VtAlters
-# Bạn có thể dùng mã màu Minecraft với '&'. Ví dụ: &c cho màu đỏ.
-# Các ký tự giữ chỗ như %player%, %name%, v.v. sẽ được thay tự động.
+prefix: "<primary><bold>vAltars</bold></primary> <dark_gray>»</dark_gray> "
 
-# ── Thông báo chung ──────────────────────────────────────────────────────────
+emojis:
+  success: "✔"
+  error: "✖"
+  warning: "⚠"
+  altar: "✦"
+
 general:
-  reloaded: '&aPlugin đã được tải lại thành công.'
-  not-a-player: '&cChỉ người chơi mới có thể dùng lệnh này.'
-  no-permission: '&cBạn không có quyền dùng lệnh này.'
-  usage: '&cCách dùng: %usage%'
-  plugin-has-errors: '&c[VtAlters] Plugin phát hiện lỗi và có thể không hoạt động đúng. Nguyên nhân: &e%reasons%&c. Kiểm tra console và dùng &e/vta reload&c sau khi sửa.'
+  reloaded: "<prefix><success><emoji:success> Đã tải lại cấu hình và tin nhắn.</success>"
+  reload-failed: "<prefix><error><emoji:error> Từ chối tải lại; cấu hình trước vẫn hoạt động.</error>"
+  not-a-player: "<prefix><error>Lệnh này yêu cầu người chơi.</error>"
+  no-permission: "<prefix><error>Bạn không có quyền dùng lệnh này.</error>"
+  unknown-command: "<prefix><error>Lệnh con không hợp lệ. Dùng <white>/valtars help</white>.</error>"
+  usage: "<prefix><error>Cách dùng: <white><usage></white></error>"
 
-# ── Thông báo về gậy ─────────────────────────────────────────────────────────
 wand:
-  given: '&aBạn đã nhận được Gậy Thiết Lập Bàn Tế.'
-  selection: '&dĐã chọn khối tại &ex: %x%&d, &ey: %y%&d, &ez: %z%&d.'
-  error-no-selection: '&cBạn cần chọn một khối bằng gậy trước!'
+  given: "<prefix><success>Bạn đã nhận gậy thiết lập bàn tế.</success>"
+  selection: "<prefix><primary>Đã chọn khối: <white><x>, <y>, <z></white>.</primary>"
+  error-no-selection: "<prefix><error>Hãy chọn một khối bằng gậy trước.</error>"
 
-# ── Lệnh bàn tế (tạo, xóa, danh sách, chỉnh sửa) ───────────────────────────
 altar-commands:
-  # Tạo
-  created: '&aTạo bàn tế &e%name% &athành công.'
-  error-altar-exists: '&cBàn tế &e%name% &cđã tồn tại.'
+  created: "<prefix><success>Đã tạo bàn tế <primary><name></primary>.</success>"
+  deleted: "<prefix><success>Đã xóa bàn tế <primary><name></primary>.</success>"
+  center-set: "<prefix><success>Đã cập nhật tâm bàn tế.</success>"
+  boss-set: "<prefix><success>Đã cập nhật MythicMob.</success>"
+  center-item-set: "<prefix><success>Đã cập nhật vật phẩm kích hoạt.</success>"
+  pedestal-added: "<prefix><success>Đã thêm pedestal.</success>"
+  pedestal-removed: "<prefix><success>Đã cập nhật pedestal.</success>"
+  required-item-set: "<prefix><success>Đã gán yêu cầu cho pedestal tiếp theo.</success>"
+  required-item-removed: "<prefix><success>Đã cập nhật vật phẩm yêu cầu.</success>"
+  list-header: "<primary><bold>Danh sách bàn tế</bold></primary>"
+  list-entry: "<dark_gray>•</dark_gray> <white><name></white>"
+  list-empty: "<muted>Không có bàn tế nào.</muted>"
+  error-no-altar: "<prefix><error>Không tồn tại bàn tế <white><name></white>.</error>"
+  error-altar-exists: "<prefix><error>Bàn tế <white><name></white> đã tồn tại.</error>"
+  error-altar-busy: "<prefix><warning>Bàn tế <white><name></white> có vật phẩm hoặc nghi lễ đang chạy.</warning>"
+  error-conflict: "<prefix><error>Thay đổi xung đột với vị trí hoặc yêu cầu của bàn tế.</error>"
+  error-invalid: "<prefix><error>Tên, vật phẩm, số lượng hoặc cấu hình không hợp lệ.</error>"
+  error-invalid-number: "<prefix><error>Số lượng phải là số nguyên dương.</error>"
+  error-no-item-in-hand: "<prefix><error>Hãy cầm vật phẩm ở tay chính.</error>"
 
-  # Xóa
-  deleted: '&aXóa bàn tế &e%name% &athành công.'
-  error-no-altar: '&cKhông tìm thấy bàn tế &e%name%&c.'
-
-  # Danh sách
-  list-header: '&6--- &eDanh Sách Bàn Tế &6---'
-  list-entry: '&8- &7%name%'
-  list-empty: ' &7(Không có bàn tế nào)'
-
-  # Chỉnh sửa
-  center-set: '&aĐã đặt tâm bàn tế tại vị trí đã chọn.'
-  boss-set: '&aBoss của bàn tế &e%name% &ađã được đặt thành &e%mob%&a.'
-  center-item-set: '&aVật phẩm kích hoạt đã được đặt thành &e%item_name%&a.'
-  pedestal-added: '&aĐã thêm pedestal vào bàn tế.'
-  pedestal-removed: '&aĐã xóa pedestal tại vị trí đã chọn.'
-  pedestals-cleared: '&aĐã xóa tất cả pedestal của bàn tế &e%name%&a.'
-  required-item-set: '&aĐã đặt &e%amount%x %item_name% &alàm vật phẩm yêu cầu.'
-  required-item-removed: '&aĐã xóa (các) vật phẩm yêu cầu trùng khớp.'
-  required-items-cleared: '&aĐã xóa tất cả vật phẩm yêu cầu.'
-
-  # Lỗi chỉnh sửa
-  error-no-item-in-hand: '&cBạn cần cầm vật phẩm trên tay chính.'
-  error-must-set-center: '&cCần đặt tâm bàn tế trước khi thêm pedestal.'
-  error-pedestal-too-far: '&cPedestal quá xa tâm bàn tế (Bán kính tối đa: %radius% khối).'
-  error-pedestal-already-exists: '&cKhối này đã là pedestal.'
-  error-pedestal-not-found: '&cKhối đã chọn không phải pedestal của bàn tế này.'
-  error-no-pedestals-to-clear: '&cBàn tế &e%name% &ckhông có pedestal để xóa.'
-  error-invalid-number: '&cVui lòng nhập số dương hợp lệ.'
-  error-no-required-items-to-remove: '&cBàn tế này không có vật phẩm yêu cầu để xóa.'
-  error-no-matching-item-to-remove: '&cKhông có vật phẩm yêu cầu nào khớp với vật phẩm trên tay.'
-  error-must-add-pedestals-first: '&cCần thêm pedestal trước khi yêu cầu vật phẩm.'
-  error-items-exceed-pedestals: '&cKhông thể thêm. Tổng vật phẩm yêu cầu (%total_required%) vượt quá số pedestal (%pedestal_count%).'
-
-# ── Tương tác với bàn tế (khi chơi) ─────────────────────────────────────────
 altar-interaction:
-  not-ready: '&cBàn tế chưa sẵn sàng. Cần thêm vật phẩm lên pedestal.'
-  wrong-item: '&cBạn dùng sai vật phẩm trên bàn tế.'
-  wrong-pedestal-item: '&c&l%item% &ckhông phải vật phẩm đúng cho pedestal này. Thử với: &e%hint%&c.'
-  ritual-start: '&5Nghi lễ đã bắt đầu...'
-  boss-spawned: '&aBoss đã được triệu hồi!'
-  summoning: '&eĐang có nghi lễ tại bàn tế này.'
-  not-your-item: '&cBạn không thể lấy vật phẩm mà bạn không đặt.'
-  boss-summon-broadcast: '&6&lMột Boss đã xuất hiện! &e%player% &cđã triệu hồi &4&l%boss% &cqua bàn tế!'
-  error-invalid-boss: '&cLỗi triệu hồi: loại boss ''%boss%'' không hợp lệ. Liên hệ quản trị viên.'
+  not-ready: "<prefix><warning>Bàn tế vẫn còn thiếu vật phẩm.</warning>"
+  wrong-item: "<prefix><error>Đây không phải vật phẩm kích hoạt.</error>"
+  not-enough-activation: "<prefix><warning>Bạn cần <amount> vật phẩm kích hoạt.</warning>"
+  wrong-pedestal-item: "<prefix><error>Hiện không cần <item>.</error> <muted>Còn thiếu: <hint>.</muted>"
+  pedestal-hologram: "<primary><bold><amount>x</bold></primary> <item>"
+  pedestal-full: "<prefix><warning>Pedestal này không thể nhận thêm vật phẩm.</warning>"
+  ritual-start: "<prefix><primary><emoji:altar> Nghi lễ đã bắt đầu...</primary>"
+  boss-spawned: "<prefix><success><emoji:success> Boss đã được triệu hồi.</success>"
+  summoning: "<prefix><warning>Bàn tế này đang có nghi lễ.</warning>"
+  not-your-item: "<prefix><error>Bạn không thể lấy vật phẩm của người khác.</error>"
+  world-unavailable: "<prefix><error>Thế giới của bàn tế chưa được tải.</error>"
+  refund-pending: "<prefix><warning>Túi đồ không đủ chỗ; vật phẩm hoàn trả đã được lưu.</warning>"
+  placements-expired: "<prefix><warning>Bàn tế đã đặt lại do không hoạt động hoặc bị bỏ; vật phẩm đã được hoàn trả.</warning>"
+  boss-summon-broadcast: "<primary><emoji:altar> <player></primary> <muted>đã triệu hồi</muted> <white><boss></white><muted>.</muted>"
+  error-invalid-boss: "<prefix><error><emoji:error> Không thể triệu hồi <white><boss></white>; vật phẩm đã được trả hoặc lưu lại.</error>"
 
-# ── Trợ giúp ─────────────────────────────────────────────────────────────────
+gui:
+  title: "<primary><bold>Bàn tế</bold></primary> <muted>· <page>/<pages></muted>"
+  altar-name: "<primary><bold><name></bold></primary>"
+  altar-lore:
+    - "<muted>Boss:</muted> <white><boss></white>"
+    - "<muted>Vị trí:</muted> <white><world> · <coordinates></white>"
+    - "<muted>Pedestal:</muted> <white><pedestals></white>"
+    - "<muted>Vật phẩm trung tâm:</muted> <white><activation></white>"
+    - "<muted>Trạng thái:</muted> <state>"
+    - ""
+    - "<success>Nhấp để dịch chuyển.</success>"
+  state-busy: "<warning>Đang bận</warning>"
+  state-available: "<success>Sẵn sàng</success>"
+  previous: "<primary>Trang trước</primary>"
+  next: "<primary>Trang sau</primary>"
+  close: "<error>Đóng</error>"
+  teleported: "<prefix><success>Đã dịch chuyển đến bàn tế <white><name></white>.</success>"
+  teleport-failed: "<prefix><error>Không thể dịch chuyển đến bàn tế <white><name></white>.</error>"
+  world-unavailable: "<prefix><error>Thế giới hoặc tâm của bàn tế <white><name></white> không khả dụng.</error>"
+
 help:
-  header: '&6--- &e&lTrợ Giúp VtAlters &6---'
-  create: '&a/%label% create <tên> &7- Tạo bàn tế mới.'
-  delete: '&a/%label% delete <tên> &7- Xóa bàn tế.'
-  list: '&a/%label% list &7- Liệt kê bàn tế.'
-  wand: '&a/%label% wand &7- Lấy gậy thiết lập.'
-  reload: '&a/%label% reload &7- Tải lại plugin.'
-  edit-header: '&6--- &eLệnh Chỉnh Sửa &6---'
-  edit-set-center: '&a/%label% edit <tên> set center &7- Đặt khối trung tâm.'
-  edit-set-mob: '&a/%label% edit <tên> set mob <mob> &7- Đặt boss triệu hồi.'
-  edit-add-itemcenter: '&a/%label% edit <tên> add itemcenter &7- Đặt vật phẩm kích hoạt (hỗ trợ Nexo).'
-  edit-add-pedestal: '&a/%label% edit <tên> add pedestal &7- Thêm pedestal.'
-  edit-add-item: '&a/%label% edit <tên> add item <số> &7- Thêm vật phẩm yêu cầu (hỗ trợ Nexo).'
-  edit-remove-pedestal: '&a/%label% edit <tên> remove pedestal [all] &7- Xóa pedestal.'
-  edit-remove-item: '&a/%label% edit <tên> remove item [all] &7- Xóa vật phẩm yêu cầu.'
+  header: "<newline><primary><bold>vAltars</bold></primary> <muted>| Trợ giúp <page>/<pages></muted><newline>"
+  footer: "<newline><muted>Nhấp vào lệnh để điền lệnh.</muted><newline>"
+  invalid-page: "<prefix><error>Trang không hợp lệ. Phạm vi: 1-<pages>.</error>"
+  descriptions:
+    help: "Hiển thị trợ giúp."
+    about: "Hiển thị thông tin plugin."
+    reload: "Tải lại cấu hình và tin nhắn."
+    create: "Tạo một bàn tế."
+    delete: "Xóa bàn tế không hoạt động."
+    list: "Liệt kê các bàn tế."
+    gui: "Mở danh sách bàn tế và dịch chuyển."
+    wand: "Nhận gậy chọn vị trí."
+    set-center: "Đặt khối trung tâm."
+    set-mob: "Đặt MythicMob."
+    itemcenter: "Đặt vật phẩm và số lượng kích hoạt."
+    add-pedestal: "Thêm pedestal đã chọn."
+    add-item: "Thêm yêu cầu Bukkit hoặc Nexo."
+    remove-pedestal: "Xóa một hoặc mọi pedestal."
+    remove-item: "Xóa một hoặc mọi yêu cầu."
+
+about:
+  lines:
+    - ""
+    - "<primary><bold>vAltars <version></bold></primary>"
+    - "<muted>Bàn tế MythicMobs an toàn.</muted>"
+    - "<gray>Tác giả: <white>ValerinSMP</white></gray>"
+    - "<gray>Nền tảng: <white>Paper 1.21.11+</white></gray>"
+    - "<gray>Tích hợp: <white>MythicMobs và Nexo tùy chọn</white></gray>"
+  repository-label: "<primary>Kho mã vAltars</primary>"
+  repository-hover: "<muted>Mở kho mã GitHub</muted>"
+  repository-url: "https://github.com/ValerinSMP/VtAlters"
