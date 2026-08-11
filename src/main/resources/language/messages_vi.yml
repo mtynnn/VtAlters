@@ -1,4 +1,4 @@
-prefix: "<primary><bold>vAltars</bold></primary> <dark_gray>»</dark_gray> "
+prefix: "<dark_gray>[</dark_gray><primary>vAltars</primary><dark_gray>]</dark_gray> <reset>"
 
 emojis:
   success: "✔"

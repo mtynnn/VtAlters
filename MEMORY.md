@@ -9,6 +9,7 @@ Last updated: 2026-08-10
 - Public root: `/valtars help|about`. Admin root: `/valtarsadmin`; aliases `/altar`, `/vta`, `/vtalters`.
 - Canonical permissions are `valtars.admin` and `valtars.command.*`; legacy `vtalters.*` is accepted at runtime.
 - `/valtarsadmin gui` is a simple paginated admin browser guarded by `valtars.command.teleport`; it shows altar metadata/state and teleports above the configured center without editing ritual state.
+- Bundled player messages use `<dark_gray>[</dark_gray><primary>vAltars</primary><dark_gray>]</dark_gray> <reset>` as their MiniMessage prefix. The exact previous bundled `vAltars »` default migrates automatically; custom prefixes remain untouched.
 
 ## Ritual and item invariants
 
@@ -18,6 +19,7 @@ Last updated: 2026-08-10
 - The session owns cloned item snapshots, contributor data, pedestal origins through each `RefundEntry.source`, and the immutable `RitualSettings` captured at start.
 - Displays and animations are projections scoped by altar. They are never item authority.
 - Ritual animation uses non-persistent `ItemDisplay` entities and Paper teleport interpolation instead of dropped `Item` physics; all visuals are removed on terminal cleanup.
+- Animation orbit, convergence burst, and MythicMobs spawn share the center of the selected block's top face (`x/z + 0.5`, `y + 1`) without later vertical offsets.
 - `central-item-amount` stores the activation quantity. Missing legacy values load as one; activation captures, consumes, visualizes, and refunds the configured stack amount as one immutable snapshot.
 - One non-persistent `TextDisplay` per altar shows only the first incomplete pedestal, its remaining amount, and the effective name of the item built through the official Nexo API. It advances after each completed slot and is removed during ritual/cleanup.
 - Requirements are ordered one-to-one with pedestals and duplicate item IDs remain separate slots. One pedestal stores one natural `ItemStack` owned by one contributor; readiness checks that exact slot and only the owner may top it up. Incomplete contributions reset only their altar's 45-second idle deadline; full stacks are durably refunded on expiry or when no contributor remains online within the configured 16-block radius.
@@ -46,9 +48,9 @@ Bukkit player data and `pending-refunds.yml` cannot be atomically committed toge
 ## Last verified result
 
 - Command: `.\gradlew.bat clean test build --no-daemon --max-workers=1 --console=plain`.
-- Result: `BUILD SUCCESSFUL`; 26 tests, 0 failures, 0 errors, 0 skipped.
+- Result: `BUILD SUCCESSFUL`; 28 tests, 0 failures, 0 errors, 0 skipped.
 - Artifact: `build/libs/vAltars-1.1.0.jar`.
-- Size: 123551 bytes.
-- SHA-256: `E0456EBA6E7494EA761D2FA2A6FE4BC8087F41FC5E7DE86A4F33C9F6D178F3E0`.
+- Size: 123794 bytes.
+- SHA-256: `21506D882672C73E8926F7FE7B9CDB5FA355D970239DC1A3039F0719064604A4`.
 - JAR audit: `plugin.yml` reports vAltars 1.1.0 and `com.valerinsmp.valtars.VAltarsPlugin`; Java class major version 65; production classes, language files, config, altars template, and MIT resource present; no test classes, nested private JARs, or legacy `com/vtalters` classes.
-- Smoke status: PARTIAL PASS in `C:\Users\marti\.codex\visualizations\2026\08\09\019fe814-f247-77c0-8ae3-77d3830a5c0c\valtars-real-smoke-1.1.0-20260810`. Paper 1.21.11 (`5FFEF465EEEB5F2A3C23A24419D97C51AFD7DBB4923FF42DF9A3F58BBA1CCFBA`), MythicMobs 5.11.2 (`D49F5F801ADF1ED5E379840A3272DD8A7C3DFC399E4249521A4CF10DEC936523`) and this vAltars JAR enabled; legacy migration copied/backed up two files; valid reload applied; invalid radius reload was rejected while the previous snapshot remained active; disable completed and Paper exited 0. Nexo name/render and client-visible ItemDisplay/GUI/teleport remain BLOCKED until a real Nexo runtime and Minecraft client are available. Evidence log SHA-256: `18FF60357968ABA415D9AE1221E3E306470DEB04D35193F8BA36B9A9CADF15E6`.
+- Smoke status: the previous PARTIAL PASS in `C:\Users\marti\.codex\visualizations\2026\08\09\019fe814-f247-77c0-8ae3-77d3830a5c0c\valtars-real-smoke-1.1.0-20260810` remains evidence for unchanged ritual/configuration paths, but it used an earlier JAR and does not validate the new prefix or spawn height. Nexo name/render and client-visible prefix, ItemDisplay, spawn appearance, GUI and teleport remain BLOCKED until a real Nexo runtime and Minecraft client are available.

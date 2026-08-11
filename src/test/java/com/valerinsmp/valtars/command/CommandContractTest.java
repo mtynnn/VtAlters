@@ -54,6 +54,8 @@ class CommandContractTest {
                 assertNotNull(stream);
                 YamlConfiguration yaml = YamlConfiguration.loadConfiguration(
                         new InputStreamReader(stream, StandardCharsets.UTF_8));
+                assertEquals("<dark_gray>[</dark_gray><primary>vAltars</primary><dark_gray>]</dark_gray> <reset>",
+                        yaml.getString("prefix"));
                 assertTrue(yaml.isList("gui.altar-lore"));
                 assertFalse(yaml.getStringList("gui.altar-lore").isEmpty());
                 assertNotNull(yaml.getString("gui.teleported"));

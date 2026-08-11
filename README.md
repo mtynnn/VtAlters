@@ -1,110 +1,90 @@
+<div align="center">
+
 # vAltars
 
-Altares rituales para Paper que invocan jefes de MythicMobs. Admite objetos Bukkit y, de forma opcional, objetos personalizados de Nexo.
+### Altares rituales seguros para Paper y MythicMobs
 
-Repositorio oficial: [ValerinSMP/vAltars](https://github.com/ValerinSMP/vAltars).
+[![Version](https://img.shields.io/badge/version-1.1.0-FFD166?style=for-the-badge)](https://github.com/ValerinSMP/vAltars)
+[![Paper](https://img.shields.io/badge/Paper-1.21.11%2B-222222?style=for-the-badge)](https://papermc.io/)
+[![Java](https://img.shields.io/badge/Java-21-E76F00?style=for-the-badge&logo=openjdk&logoColor=white)](https://adoptium.net/)
+[![License](https://img.shields.io/badge/License-MIT-00B894?style=for-the-badge)](LICENSE)
 
-## Requisitos
+Convierte estructuras del mundo en rituales configurables con pedestales, objetos y jefes personalizados.
 
-- Paper 1.21.11 o superior.
-- Java 21.
-- MythicMobs 5.11.2 o compatible. Es una dependencia obligatoria.
-- Nexo 1.8 o compatible solo si los altares usan objetos Nexo.
+</div>
 
-## Instalación
+## ⭐ Características
 
-1. Copia `vAltars-1.1.0.jar` a `plugins/`.
-2. Instala el JAR real de MythicMobs y, si corresponde, Nexo.
-3. Inicia el servidor. Los datos se guardan en `plugins/vAltars/`.
-4. Configura los altares con `/valtarsadmin` o uno de sus alias.
+- ⭐ **Rituales seguros:** los objetos se confirman solo cuando MythicMobs devuelve un jefe vivo; un spawn fallido activa su devolución.
+- ⭐ **Pedestales ordenados:** cada pedestal exige su propio objeto y cantidad, incluso cuando varios requisitos usan el mismo material.
+- ⭐ **Objetos Bukkit y Nexo:** admite stacks, objetos centrales con cantidad y nombres visibles de Nexo en los hologramas.
+- ⭐ **Recuperación automática:** los aportes abandonados o inactivos se devuelven, incluso si el jugador está desconectado o sin espacio.
+- ⭐ **Administración en juego:** varita de selección, comandos con autocompletado y una GUI para consultar y visitar altares.
+- ⭐ **Migración compatible:** importa instalaciones de VtAlters sin sobrescribir archivos modernos.
 
-No se recomienda descargar o recargar plugins en caliente. Usa `/valtarsadmin reload` para recargar solamente `config.yml` y el archivo de idioma.
+## Compatibilidad
 
-## Migración desde VtAlters
+| Componente | Versión | Uso |
+| --- | --- | --- |
+| Paper | 1.21.11 o superior | Plataforma requerida |
+| Java | 21 | Runtime y compilación |
+| MythicMobs | 5.11.2 | Dependencia requerida |
+| Nexo | 1.8.0 | Opcional, solo para objetos Nexo |
 
-Al iniciar, vAltars busca `plugins/VtAlters/`. Si existe, crea una copia de respaldo en `plugins/vAltars/backups/legacy-v1/` y copia únicamente los archivos que todavía no existen en la carpeta nueva.
+vAltars está diseñado para Paper. No ofrece soporte oficial para Folia, Bukkit, Spigot, Arclight ni recargas mediante PlugMan.
 
-La migración es idempotente: nunca sobrescribe datos modernos y puede ejecutarse más de una vez sin duplicar ni perder configuración. Se siguen leyendo `central-item-nexo-id` y el mapa legacy `required-items-nexo`; al guardar, los requisitos Bukkit y Nexo usan la lista ordenada `required-items`.
+## Setup
+
+1. Instala MythicMobs y, si usarás objetos personalizados, Nexo.
+2. Copia `vAltars-1.1.0.jar` a la carpeta `plugins/`.
+3. Inicia el servidor; vAltars creará sus archivos en `plugins/vAltars/`.
+4. Crea y configura tu primer altar siguiendo el [tutorial paso a paso](TUTORIAL-ALTAR.md).
+
+Usa `/valtarsadmin reload` para validar y recargar `config.yml` y el idioma sin reiniciar el plugin. Los rituales activos conservan la configuración con la que comenzaron.
+
+### Migración desde VtAlters
+
+Al iniciar, vAltars copia únicamente los archivos faltantes desde `plugins/VtAlters/`, guarda un respaldo en `plugins/vAltars/backups/legacy-v1/` y nunca sobrescribe datos modernos. La migración es idempotente.
 
 ## Comandos
 
-Los comandos públicos no requieren permisos:
+| Comando | Descripción | Permiso |
+| --- | --- | --- |
+| `/valtars help [página]` | Ayuda pública paginada | Ninguno |
+| `/valtars about` | Versión, plataforma e integraciones | Ninguno |
+| `/valtarsadmin help [página]` | Ayuda administrativa | Según cada subcomando |
+| `/valtarsadmin create <nombre>` | Crear un altar | `valtars.command.create` |
+| `/valtarsadmin delete <nombre>` | Eliminar un altar libre | `valtars.command.delete` |
+| `/valtarsadmin list` | Listar altares | `valtars.command.list` |
+| `/valtarsadmin gui` | Abrir el navegador y teletransporte | `valtars.command.teleport` |
+| `/valtarsadmin wand` | Obtener la varita de selección | `valtars.command.wand` |
+| `/valtarsadmin edit ...` | Configurar centro, jefe, pedestales y objetos | `valtars.command.edit` |
+| `/valtarsadmin reload` | Recargar configuración e idioma | `valtars.command.reload` |
 
-| Comando | Descripción |
-| --- | --- |
-| `/valtars help [página]` | Muestra ayuda paginada e interactiva. |
-| `/valtars about` | Muestra versión, plataforma e integraciones. |
+`valtars.admin` concede todos los permisos administrativos y es `op` por defecto. Los permisos legacy `vtalters.*` y los aliases `/altar`, `/vta` y `/vtalters` siguen disponibles.
 
-Administración:
+La sintaxis completa de creación, cantidades centrales, stacks por pedestal y eliminación está en [TUTORIAL-ALTAR.md](TUTORIAL-ALTAR.md).
 
-| Comando | Permiso |
-| --- | --- |
-| `/valtarsadmin reload` | `valtars.command.reload` |
-| `/valtarsadmin create <nombre>` | `valtars.command.create` |
-| `/valtarsadmin delete <nombre>` | `valtars.command.delete` |
-| `/valtarsadmin list` | `valtars.command.list` |
-| `/valtarsadmin gui` | `valtars.command.teleport` |
-| `/valtarsadmin wand` | `valtars.command.wand` |
-| `/valtarsadmin edit <altar> set center` | `valtars.command.edit` |
-| `/valtarsadmin edit <altar> set mob <mob>` | `valtars.command.edit` |
-| `/valtarsadmin edit <altar> add itemcenter [cantidad]` | `valtars.command.edit` |
-| `/valtarsadmin edit <altar> add pedestal` | `valtars.command.edit` |
-| `/valtarsadmin edit <altar> add item <cantidad>` | `valtars.command.edit` |
-| `/valtarsadmin edit <altar> remove pedestal [all]` | `valtars.command.edit` |
-| `/valtarsadmin edit <altar> remove item [all]` | `valtars.command.edit` |
+## Configuración
 
-`valtars.admin` incluye todos los permisos administrativos y es `op` por defecto. Se siguen aceptando `vtalters.admin` y `vtalters.command.*` para instalaciones existentes. Los alias administrativos son `/altar`, `/vta` y `/vtalters`.
+`config.yml` controla idioma, protección contra robo, radio de pedestales, expiración, anuncios, partículas, alturas y sonidos. Los mensajes MiniMessage se incluyen en español, inglés y vietnamita bajo `language/`.
 
-## Crear un altar
+Por defecto, un altar incompleto devuelve sus objetos tras 45 segundos sin aportes o cuando ningún contribuyente conectado permanece a menos de 16 bloques. Una configuración inválida no reemplaza el último estado válido.
 
-Para una explicación completa con un ejemplo listo para copiar, consulta [TUTORIAL-ALTAR.md](TUTORIAL-ALTAR.md).
+## Desarrollo
 
-1. Ejecuta `/valtarsadmin create <nombre>`.
-2. Obtén la varita con `/valtarsadmin wand` y selecciona el bloque central.
-3. Ejecuta `/valtarsadmin edit <altar> set center`.
-4. Define el jefe con `/valtarsadmin edit <altar> set mob <MythicMob>`.
-5. Selecciona y añade cada pedestal con `/valtarsadmin edit <altar> add pedestal`.
-6. Sostén el objeto de activación y usa `/valtarsadmin edit <altar> add itemcenter [cantidad]`.
-7. Sostén cada objeto requerido y usa `/valtarsadmin edit <altar> add item <cantidad>`.
-
-Los pedestales y requisitos se emparejan por orden. Cada ejecución de `add item` crea una ranura independiente para el siguiente pedestal, incluso si repites el mismo objeto.
-
-La cantidad del objeto central es opcional y vale `1` si se omite. Por ejemplo, `/valtarsadmin edit altar_dragon add itemcenter 4` exige y consume cuatro unidades iguales al iniciar el ritual. Los altares guardados antes de esta opción conservan cantidad `1`.
-
-`/valtarsadmin gui` abre una vista paginada de los altares, con jefe, coordenadas, número de pedestales y estado. Un clic teletransporta al bloque situado sobre el centro; la GUI es administrativa y requiere `valtars.command.teleport`.
-
-Un altar con objetos colocados o un ritual activo no puede editarse ni eliminarse. Otros altares siguen funcionando de forma independiente.
-
-## Configuración e idiomas
-
-`config.yml` controla idioma, protección contra robo, radio máximo, expiración de objetos, anuncio global, partículas, alturas y sonidos. Se incluyen mensajes MiniMessage en español, inglés y vietnamita bajo `language/`.
-
-Por defecto, un altar incompleto devuelve sus objetos después de 45 segundos sin un nuevo aporte. También los devuelve antes si ningún contribuyente sigue conectado a menos de 16 bloques. Puedes ajustar ambos valores en `altar.placement-expiry.idle-seconds` y `altar.placement-expiry.max-player-distance`.
-
-Una recarga valida primero toda la configuración. Si algo es inválido, la configuración anterior sigue activa. Los rituales que ya comenzaron conservan su snapshot; los cambios se aplican solo a sesiones nuevas y no vuelven a registrar listeners.
-
-## Seguridad de objetos
-
-Cada ritual conserva snapshots propios de los objetos y pedestales. Los displays son solo una proyección visual. El consumo queda confirmado únicamente después de que MythicMobs devuelva una entidad viva y válida; si el spawn falla, los objetos se devuelven.
-
-La animación usa `ItemDisplay` temporales e interpolados en lugar de entidades de objeto soltado, evitando su giro, rebote y física propios. Los displays se eliminan al terminar o cancelar y nunca sustituyen los snapshots de la sesión.
-
-Cada pedestal acepta únicamente el objeto y la cantidad de su requisito asignado. Un único holograma señala la primera ranura incompleta, muestra la cantidad restante y avanza al siguiente pedestal al completarla. Para objetos Nexo utiliza el nombre visible del `ItemStack` construido por su API, no el ID interno. Un pedestal puede reunir varias unidades y el mismo dueño puede completarlo con clics posteriores. Los requisitos repetidos permanecen separados, por lo que otro jugador puede contribuir en otra ranura sin mezclar propiedad. El stack puede retirarlo su dueño, completa el ritual si llegan los demás aportes o se devuelve automáticamente por inactividad/abandono.
-
-Si el jugador está desconectado o su inventario está lleno, la devolución se guarda en `pending-refunds.yml`. Los leftovers permanecen pendientes y se reintentan al ingresar. La entrega usa reclamación durable y un tag temporal; el tag se elimina tras confirmar y el objeto vuelve a apilar normalmente.
-
-El inventario de Bukkit y el archivo YAML no forman una transacción atómica única. El protocolo está diseñado para recuperación sin una ruta reproducible de pérdida o duplicación bajo las garantías normales de `Player#saveData`, pero no promete “exactamente una vez” ante fallos del sistema de archivos o almacenamiento que contradigan una escritura confirmada.
-
-## Compilar
+Requiere Java 21 y el Gradle Wrapper incluido:
 
 ```powershell
 .\gradlew.bat clean test build --no-daemon --max-workers=1 --console=plain
 ```
 
-El artefacto se genera en `build/libs/vAltars-1.1.0.jar`.
+El JAR se genera en `build/libs/vAltars-1.1.0.jar`.
 
-Último artefacto verificado: 123535 bytes, SHA-256 `D8FB0A6022723BF800046EB7A7404D80BD0ED70805AA94B44B9BAAD7452ED5B8` (26 pruebas superadas).
+## Licencia y enlaces
 
-## Licencia
+- [Repositorio](https://github.com/ValerinSMP/vAltars)
+- [Tutorial para crear altares](TUTORIAL-ALTAR.md)
+- [Licencia MIT](LICENSE)
 
-MIT. Se conserva el copyright original de thangks en [LICENSE](LICENSE).
+Se conserva la atribución original a **thangks** incluida en la licencia.

@@ -29,6 +29,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class MessageService {
+    private static final String DEFAULT_PREFIX =
+            "<dark_gray>[</dark_gray><primary>vAltars</primary><dark_gray>]</dark_gray> <reset>";
+    private static final String LEGACY_DEFAULT_PREFIX =
+            "<primary><bold>vAltars</bold></primary> <dark_gray>»</dark_gray> ";
     private static final Pattern LEGACY_HEX = Pattern.compile("(?i)&#([0-9a-f]{6})");
     private static final Pattern LEGACY_PLACEHOLDER = Pattern.compile("%([a-zA-Z0-9_-]+)%");
     private static final Pattern EMOJI = Pattern.compile("<emoji:([a-zA-Z0-9_-]+)>");
@@ -109,7 +113,7 @@ public final class MessageService {
         if (emojiSection != null) {
             for (String key : emojiSection.getKeys(false)) emojis.put(key, emojiSection.getString(key, ""));
         }
-        String prefixRaw = current.getString("prefix", "<primary><bold>vAltars</bold></primary> <dark_gray>»</dark_gray> ");
+        String prefixRaw = current.getString("prefix", DEFAULT_PREFIX);
         Component prefix = MINI_MESSAGE.deserialize(normalize(prefixRaw, false));
         Snapshot candidate = new Snapshot(current, Map.copyOf(emojis), prefix);
         Snapshot previous = snapshot;
@@ -130,7 +134,7 @@ public final class MessageService {
             if (stream == null) return;
             YamlConfiguration defaults = YamlConfiguration.loadConfiguration(
                     new InputStreamReader(stream, StandardCharsets.UTF_8));
-            boolean changed = false;
+            boolean changed = migrateLegacyPrefix(current, defaults);
             for (String key : defaults.getKeys(true)) {
                 if (!defaults.isConfigurationSection(key) && !current.isSet(key)) {
                     current.set(key, defaults.get(key));
@@ -141,6 +145,12 @@ public final class MessageService {
         } catch (IOException exception) {
             throw new IllegalStateException("Could not merge message defaults", exception);
         }
+    }
+
+    static boolean migrateLegacyPrefix(YamlConfiguration current, YamlConfiguration defaults) {
+        if (!LEGACY_DEFAULT_PREFIX.equals(current.getString("prefix"))) return false;
+        current.set("prefix", defaults.getString("prefix", DEFAULT_PREFIX));
+        return true;
     }
 
     private String normalize(String raw, boolean console) {

@@ -127,9 +127,13 @@ public final class RitualPresentation {
         return key == null ? null : Registry.SOUNDS.get(key);
     }
 
+    public static Location ritualPoint(Location centerBlock) {
+        return centerBlock.clone().add(0.5, 1.0, 0.5);
+    }
+
     private void renderFrame(Animation animation, Location center, RitualSettings settings, long tick) {
-        Location orbitCenter = center.clone().add(0.5, 4.0, 0.5);
-        Location finalPoint = center.clone().add(0.5, 5.0, 0.5);
+        Location orbitCenter = ritualPoint(center);
+        Location finalPoint = orbitCenter;
         if (tick < PRE_DELAY) {
             renderRings(center, settings, tick);
             if (tick % 25 == 0) playSound(center, settings.ambientSound());

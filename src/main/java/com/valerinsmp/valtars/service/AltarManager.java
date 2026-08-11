@@ -377,7 +377,7 @@ public final class AltarManager {
         }
         LivingEntity boss;
         try {
-            boss = mythic.spawn(session.bossName(), center.clone().add(0.5, 3, 0.5));
+            boss = mythic.spawn(session.bossName(), RitualPresentation.ritualPoint(center));
         } catch (Throwable throwable) {
             fail(session, throwable);
             return;
